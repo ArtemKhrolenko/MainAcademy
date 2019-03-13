@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Module_01",
+    "\\Module_01\\Lesson_01",
+    "\\Module_01\\Lesson_01\\HelloWorld_stud\\HelloWorld_stud"
   ],
+  "SelectedNode": "\\Module_01\\Lesson_01",
   "PreviewInSolutionExplorer": false
 }
