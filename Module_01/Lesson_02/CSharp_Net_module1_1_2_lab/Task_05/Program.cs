@@ -19,9 +19,7 @@ namespace Task_05
             }
 
             Console.WriteLine($"Sum from 1 to 50 equals {sum}");
-            Console.ReadLine();
-
-            
+            Console.ReadLine();          
 
             
 
