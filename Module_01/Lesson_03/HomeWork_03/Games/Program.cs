@@ -54,8 +54,7 @@ namespace Games
                     Console.WriteLine("Exit");
                     break;
             }
-            Console.WriteLine("Press any key");
-            Console.ReadLine();
+            
         }
     }
 }

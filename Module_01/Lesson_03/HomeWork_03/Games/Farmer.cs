@@ -9,6 +9,7 @@ namespace Games
     internal class Farmer
     {
 
+        private int currentChoice;
         private string whoAreOnTheBank; //String with staff
         private bool isOnTheRightBank;  //is farmer on the right bank?
         private string[] stuff = { "Wolf", "Goat", "Cabbage", "Farmer alone" };
@@ -17,6 +18,7 @@ namespace Games
         {
             whoAreOnTheBank = "wgcf|0000";
             isOnTheRightBank = false;
+            currentChoice = -1;
         }
 
         //display vars (choice)
@@ -26,9 +28,65 @@ namespace Games
 
             for (int i = 0 + j; i < 4 + j; i++)
             {
-                Console.WriteLine($"{i + 1}. {stuff[i]}");
+                if (whoAreOnTheBank[i] != '0')
+                    Console.WriteLine($"{i-j + 1}. {stuff[i-j]}");
             }
             
+        }
+
+        private bool CheckTheChoice()
+        {
+            int _currentChoice = -1;
+            string _currentString = "";
+            try
+            {
+                //In dependency on where farmer is chose staff what on the exat bank
+                _currentString = isOnTheRightBank ? whoAreOnTheBank.Substring(5,4) : whoAreOnTheBank.Substring(0, 4);
+
+                //Receive number of choice from user
+                Console.WriteLine("Please, make your choice!");
+                _currentChoice = Int32.Parse(Console.ReadLine());
+
+                //Checking for the valid of data
+                if (_currentChoice == -1 || _currentChoice > 4 )
+                {
+                    throw new Exception();
+                }
+                else if (_currentString[_currentChoice - 1] == '0')
+                {
+                    Console.WriteLine("This item is not on the bank!!!");
+                    return false;
+                }                    
+                else //Choice is correct. Logic checking
+                {
+                    StringBuilder strb = new StringBuilder(_currentString);
+                    strb.Replace(strb[_currentChoice - 1], '0');                    
+                    Console.WriteLine(strb.ToString());
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    if (strb.ToString() == "wg0f")
+                    {
+                        Console.WriteLine("Oops! Wolf eats the Goat!");
+                    }
+                    else if (strb.ToString() == "0gcf")
+                    {
+                        Console.WriteLine("Oops! Goat eats the Cabbage!");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Good Operation!!!!!");
+                    }
+                }
+
+            }
+            catch
+            {                
+                Console.WriteLine("Incorrect data!");
+                return false;
+            }      
+
+            return true;
         }
 
 
@@ -65,8 +123,23 @@ You can do whatever how many flights. How to transport the wolf, goat and cabbag
 
             #endregion
 
-            ShowVariants();
             
+            ShowVariants();
+
+            //Console.ForegroundColor = ConsoleColor.Blue;
+            //Console.WriteLine("Please,  type numbers by step ");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            if (CheckTheChoice())
+            {
+                //doSomeOperation
+            }
+            else
+            {
+                //continue
+            }
+
+
         }
             
     }
