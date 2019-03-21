@@ -18,7 +18,17 @@ namespace Games
             4. Guess the number Game
             ");
 
-            a = long.Parse(Console.ReadLine());
+            try
+            {
+                a = long.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+
+                a = 0;
+                Console.WriteLine("Incorrect input"); ;
+            }
+            
             switch (a)
             {
                 case 1:
