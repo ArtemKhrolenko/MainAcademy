@@ -44,7 +44,7 @@ namespace Games
                     case "/":
                         Console.WriteLine($"Result = {(double)firstOperand / (double)secondOperand}");
                         break;
-
+                        
                     default:
                         Console.WriteLine("Unknown operator");
                         break;

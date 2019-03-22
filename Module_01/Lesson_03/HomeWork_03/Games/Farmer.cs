@@ -73,6 +73,10 @@ namespace Games
                     {
                         Console.WriteLine("Oops! Goat eats the Cabbage!");
                     }
+                    else if (strbCurrent.ToString() == "wgc0")
+                    {
+                        Console.WriteLine("Oops! Farmer leave!");
+                    }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -123,13 +127,16 @@ You can do whatever how many flights. How to transport the wolf, goat and cabbag
             
 
             do
-            {
-                Console.Clear();
+            {                     
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("Please make a choice!!");
                 ShowVariants();
 
                 CheckTheChoice();
+                Console.WriteLine("Press any key to make next choice");
+                Console.ReadKey();
+                Console.Clear();
+                
             }
             while (whoAreOnTheBank != "0000|wgcf");
 

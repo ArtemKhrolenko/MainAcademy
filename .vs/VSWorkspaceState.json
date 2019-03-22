@@ -2,12 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\Module_01",
-    "\\Module_01\\Lesson_01\\HomeWork_01\\ConsoleApp1",
-    "\\Module_01\\Lesson_02\\CSharp_Net_module1_1_2_lab",
-    "\\Module_01\\Lesson_02\\CSharp_Net_module1_1_2_lab\\CSharp_Net_module1_1_2_lab",
+    "\\Module_01\\Lesson_02",
     "\\Module_01\\Lesson_03",
-    "\\Module_01\\Lesson_03\\Hello_Operatorss_stud\\Hello_Operators"
+    "\\Module_01\\Lesson_03\\HomeWork_03",
+    "\\Module_01\\Lesson_04",
+    "\\Module_01\\Lesson_04\\ClassWork",
+    "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4"
   ],
-  "SelectedNode": "\\Module_01\\Lesson_03",
+  "SelectedNode": "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4\\ClassWork_4.sln",
   "PreviewInSolutionExplorer": false
 }
