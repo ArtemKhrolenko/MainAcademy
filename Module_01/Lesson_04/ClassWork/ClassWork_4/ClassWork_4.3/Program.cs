@@ -14,7 +14,7 @@ namespace ClassWork_4._3
             int position = -1;
 
             //searching of position of last element equals 2
-
+            
             int[] int_array = new int[] { 0, 5, 8, 2, 4 };
 
             for (int i = 0; i < int_array.Length; i++)
