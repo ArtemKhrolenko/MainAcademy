@@ -124,6 +124,7 @@ You can do whatever how many flights. How to transport the wolf, goat and cabbag
 
             do
             {
+                Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.WriteLine("Please make a choice!!");
                 ShowVariants();
