@@ -4,15 +4,13 @@
     "\\Module_01",
     "\\Module_01\\Lesson_02",
     "\\Module_01\\Lesson_03",
-    "\\Module_01\\Lesson_03\\ClassWork",
     "\\Module_01\\Lesson_03\\ClassWork\\ClassWork_04",
     "\\Module_01\\Lesson_03\\HomeWork_03\\Games",
+    "\\Module_01\\Lesson_03\\HomeWork_03\\Games\\Farmer",
     "\\Module_01\\Lesson_04",
     "\\Module_01\\Lesson_04\\ClassWork",
-    "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4",
-    "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4\\ClassWork_4.5",
-    "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4\\ClassWork_4.6"
+    "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4"
   ],
-  "SelectedNode": "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4\\ClassWork_4.6\\Program.cs",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
