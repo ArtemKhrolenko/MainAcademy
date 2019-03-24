@@ -45,7 +45,13 @@
   <ItemGroup>
     <Compile Include="Calculator.cs" />
     <Compile Include="Factorial.cs" />
-    <Compile Include="Farmer.cs" />
+    <Compile Include="FarmerGOne.cs" />
+    <Compile Include="FarmerGame\Cabbage.cs" />
+    <Compile Include="FarmerGame\Farmer.cs" />
+    <Compile Include="FarmerGame\FarmerGame.cs" />
+    <Compile Include="FarmerGame\Goat.cs" />
+    <Compile Include="FarmerGame\Stuff.cs" />
+    <Compile Include="FarmerGame\Wolf.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomNum.cs" />

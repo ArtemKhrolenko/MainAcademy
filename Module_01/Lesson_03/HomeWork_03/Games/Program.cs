@@ -33,7 +33,10 @@ namespace Games
             {
                 case 1:
                     //Farmer_puzzle();
-                    new Farmer().StartGame();
+
+                    new FarmerGOne().StartGame();             //Implementation with Arrays
+                    //new FarmerGame.FarmerGame().StartGame();    //Implementation with Objects
+
                     Console.WriteLine("");
                     break;
                 case 2:
