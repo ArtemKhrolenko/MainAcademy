@@ -2,15 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\Module_01",
-    "\\Module_01\\Lesson_02",
+    "\\Module_01\\Lesson_01\\HelloWorld_stud",
+    "\\Module_01\\Lesson_01\\HelloWorld_stud\\HelloWorld_stud",
     "\\Module_01\\Lesson_03",
+    "\\Module_01\\Lesson_03\\Hello_Operatorss_stud",
+    "\\Module_01\\Lesson_03\\Hello_Operatorss_stud\\Hello_Operators",
     "\\Module_01\\Lesson_03\\HomeWork_03",
-    "\\Module_01\\Lesson_03\\HomeWork_03\\Games",
-    "\\Module_01\\Lesson_03\\HomeWork_03\\Games\\Farmer",
-    "\\Module_01\\Lesson_04",
-    "\\Module_01\\Lesson_04\\ClassWork",
-    "\\Module_01\\Lesson_04\\ClassWork\\ClassWork_4"
+    "\\Module_01\\Lesson_03\\HomeWork_03\\Games"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\Module_01\\Lesson_03\\Hello_Operatorss_stud\\Hello_Operators\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

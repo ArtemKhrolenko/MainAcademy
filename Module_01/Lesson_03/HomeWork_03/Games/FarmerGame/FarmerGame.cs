@@ -9,24 +9,18 @@ namespace Games.FarmerGame
 {
     internal class FarmerGame
     {
-        private ArrayList leftBankStuff = new ArrayList();  // Stuff on the LEft bank
-        private ArrayList rightBankStuff = new ArrayList(); // Stuff on the Right bank
+        private ArrayList leftBankStuff;  // Stuff on the LEft bank
+        private ArrayList rightBankStuff; // Stuff on the Right bank
         ArrayList currentStuff;                             // What staff on the current bank?
         private bool isOnTheRightBank;                      //is Farmer on the right bank?
 
         internal FarmerGame()
         {
             //Initalize Left Bank Stuff
-            leftBankStuff.Add(new Wolf());
-            leftBankStuff.Add(new Goat());
-            leftBankStuff.Add(new Cabbage());
-            leftBankStuff.Add(new Farmer());
+            leftBankStuff = new ArrayList { new Wolf(), new Goat(), new Cabbage(), new Farmer()};
 
             //Initalize Right Bank Stuff (Empty Bank)
-            for (int i = 0; i < 4; i++)
-            {
-                rightBankStuff.Add(0);
-            }
+            rightBankStuff = new ArrayList { 0,0,0,0};            
 
             isOnTheRightBank = false; // Stuff are on the left Bnk
 
