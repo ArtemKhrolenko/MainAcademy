@@ -91,31 +91,74 @@ namespace CSharp_Net_module1_1_4_lab
                                                   new Computer(ComputerType.Server)};
 
 
-            Console.WriteLine("All computers: \n");
-            int i = 0;
-            foreach (var item in computersArray)
-            {
-                Console.WriteLine($"Department# {++i}");
-                foreach (Computer comp in item)
-                {
-                    Console.WriteLine($"Type = {comp.type};  CPU = {comp.CPUcores};  RAM = {comp.CPUmemory};  HDD = {comp.CPUHdd}");
-                }
-                Console.WriteLine();
-            }
+            //Console.WriteLine("All computers: \n");
+            //int i = 0;
+            //foreach (var item in computersArray)
+            //{
+            //    Console.WriteLine($"Department# {++i}");
+            //    foreach (Computer comp in item)
+            //    {
+            //        Console.WriteLine($"Type = {comp.type};  CPU = {comp.CPUcores};  RAM = {comp.CPUmemory};  HDD = {comp.CPUHdd}");
+            //    }
+            //    Console.WriteLine();
+            //}
+
 
             // 5) initialize array
             // Note: use loops and if-else statements
 
 
             // 6) count total number of every type of computers
+
             // 7) count total number of all computers
+
+            int desktopPCCount = 0, laptopPCCount = 0, serverPCCount = 0;
+            for (int i = 0; i < computersArray.Length; i++)
+            {
+                for (int j = 0; j < computersArray[i].Length; j++)
+                {
+                    if (computersArray[i][j].type == ComputerType.Desktop)
+                        desktopPCCount++;
+                    else if (computersArray[i][j].type == ComputerType.Laptop)
+                        laptopPCCount++;
+                    else
+                        serverPCCount++;
+                }
+            }
+
+            Console.WriteLine(String.Format("Total count of computers:  {0,5} ", desktopPCCount + laptopPCCount + serverPCCount));
+            Console.WriteLine(String.Format("Total count of Desktop PC: {0,4}\nTotal count of Laptop PC: {1,5}\nTotal count of Server PC: {2,5}", desktopPCCount, laptopPCCount, serverPCCount));
+
+            Console.WriteLine($"Total number of every type of computers: ");
             // Note: use loops and if-else statements
             // Note: use the same loop for 6) and 7)
 
 
 
             // 8) find computer with the largest storage (HDD) - 
-            // compare HHD of every computer between each other; 
+            // compare HHD of every computer between each other;
+            int maxHdd = Int32.MinValue;
+            int maxI = -1, maxJ = -1;            
+            for (int i = 0; i < computersArray.Length; i++)
+            {
+                for (int j = 0; j < computersArray[i].Length; j++)
+                {
+                    if (computersArray[i][j].CPUHdd > maxHdd)
+                    {
+                        maxHdd = computersArray[i][j].CPUHdd;
+                        maxI = i; maxJ = j;
+                    }
+                }
+            }
+            Console.WriteLine(new String('-', 50));
+
+            Console.WriteLine($"Computer with MAX HDD: Type: {computersArray[maxI][maxJ].type}   | Cores of CPU: {computersArray[maxI][maxJ].CPUcores}" +
+                                                                                              $" | RAM: {computersArray[maxI][maxJ].CPUmemory} GB" +
+                                                                                              $" | Frequency: {computersArray[maxI][maxJ].CPUmemory} GHz" +
+                                                                                              $" | HDD: {computersArray[maxI][maxJ].CPUHdd} GB" +
+                                                                                              $" | Department: {maxI + 1}");
+
+
             // find position of this computer in array (indexes)
             // Note: use loops and if-else statements
 
