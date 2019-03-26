@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CSharp_Net_module1_1_4_lab
 {
     class Program
@@ -47,16 +48,16 @@ namespace CSharp_Net_module1_1_4_lab
 
                     case ComputerType.Server:
                         CPUcores     = 8;       //8 Cores
-                        CPUFrequency = 3;       //3 GHz
+                        CPUFrequency = 3.0;     //3 GHz
                         CPUmemory    = 16;      //4 GB RAM
                         CPUHdd       = 2048;    //2 TB HDD 
                         break;
 
                     default:
-                        CPUcores     = -1;      //8 Cores
-                        CPUFrequency = -1;      //3 GHz
-                        CPUmemory    = -1;      //4 GB RAM
-                        CPUHdd       = -1;      //2 TB HDD 
+                        CPUcores     = -1;    
+                        CPUFrequency = -1;    
+                        CPUmemory    = -1;    
+                        CPUHdd       = -1;    
                         break;
                 }
             }
@@ -111,57 +112,14 @@ namespace CSharp_Net_module1_1_4_lab
             // 6) count total number of every type of computers
 
             // 7) count total number of all computers
-
-            int desktopPCCount = 0, laptopPCCount = 0, serverPCCount = 0;
-            for (int i = 0; i < computersArray.Length; i++)
-            {
-                for (int j = 0; j < computersArray[i].Length; j++)
-                {
-                    if (computersArray[i][j].type == ComputerType.Desktop)
-                        desktopPCCount++;
-                    else if (computersArray[i][j].type == ComputerType.Laptop)
-                        laptopPCCount++;
-                    else
-                        serverPCCount++;
-                }
-            }
-
-            Console.WriteLine(String.Format("Total count of computers:  {0,5} ", desktopPCCount + laptopPCCount + serverPCCount));
-            Console.WriteLine(String.Format("Total count of Desktop PC: {0,4}\nTotal count of Laptop PC: {1,5}\nTotal count of Server PC: {2,5}", desktopPCCount, laptopPCCount, serverPCCount));
-
-            Console.WriteLine($"Total number of every type of computers: ");
             // Note: use loops and if-else statements
             // Note: use the same loop for 6) and 7)
 
-
-
             // 8) find computer with the largest storage (HDD) - 
             // compare HHD of every computer between each other;
-            int maxHdd = Int32.MinValue;
-            int maxI = -1, maxJ = -1;            
-            for (int i = 0; i < computersArray.Length; i++)
-            {
-                for (int j = 0; j < computersArray[i].Length; j++)
-                {
-                    if (computersArray[i][j].CPUHdd > maxHdd)
-                    {
-                        maxHdd = computersArray[i][j].CPUHdd;
-                        maxI = i; maxJ = j;
-                    }
-                }
-            }
-            Console.WriteLine(new String('-', 50));
-
-            Console.WriteLine($"Computer with MAX HDD: Type: {computersArray[maxI][maxJ].type}   | Cores of CPU: {computersArray[maxI][maxJ].CPUcores}" +
-                                                                                              $" | RAM: {computersArray[maxI][maxJ].CPUmemory} GB" +
-                                                                                              $" | Frequency: {computersArray[maxI][maxJ].CPUmemory} GHz" +
-                                                                                              $" | HDD: {computersArray[maxI][maxJ].CPUHdd} GB" +
-                                                                                              $" | Department: {maxI + 1}");
-
 
             // find position of this computer in array (indexes)
             // Note: use loops and if-else statements
-
 
             // 9) find computer with the lowest productivity (CPU and memory) - 
             // compare CPU and memory of every computer between each other; 
@@ -169,10 +127,89 @@ namespace CSharp_Net_module1_1_4_lab
             // Note: use loops and if-else statements
             // Note: use logical oerators in statement conditions
 
+            int desktopPCCount = 0, laptopPCCount = 0, serverPCCount = 0;
+            int maxHdd = Int32.MinValue;
+            int maxIHdd = -1, maxJHdd = -1;
+
+            double pcPerfCoef = double.MaxValue;
+            var minPerfij = (i:-1, j:-1);
+            
+            //int minIPerf = -1, minPerf = -1;
+
+            for (int i = 0; i < computersArray.Length; i++)
+            {
+                for (int j = 0; j < computersArray[i].Length; j++)
+                {
+                    //6
+                    if (computersArray[i][j].type == ComputerType.Desktop)
+                        desktopPCCount++;
+                    else if (computersArray[i][j].type == ComputerType.Laptop)
+                        laptopPCCount++;
+                    else
+                        serverPCCount++;
+
+                    //8
+                    if (computersArray[i][j].CPUHdd > maxHdd)
+                    {
+                        maxHdd = computersArray[i][j].CPUHdd;
+                        maxIHdd = i; maxJHdd = j;
+                    }
+
+                    //9
+                    var coef = computersArray[i][j].CPUcores * computersArray[i][j].CPUFrequency * computersArray[i][j].CPUmemory;
+                    if (coef < pcPerfCoef)
+                    {
+                        minPerfij = (i, j);
+                        pcPerfCoef = coef;
+                    }
+
+                }
+            }
+
+            //7
+            Console.WriteLine(String.Format("Total count of computers:  {0,5} ", desktopPCCount + laptopPCCount + serverPCCount));
+            //6
+            Console.WriteLine(String.Format("Total count of Desktop PC: {0,4}\nTotal count of Laptop PC: {1,5}\nTotal count of Server PC: {2,5}", desktopPCCount, laptopPCCount, serverPCCount));
+
+
+
+
+            //8
+            Console.WriteLine(new String('-', 50));
+            Console.WriteLine($"Computer with MAX HDD: \nType: {computersArray[maxIHdd][maxJHdd].type}   | Cores of CPU: {computersArray[maxIHdd][maxJHdd].CPUcores}" +
+                                                                                                      $" | RAM: {computersArray[maxIHdd][maxJHdd].CPUmemory} GB" +
+                                                                                                      $" | Frequency: {computersArray[maxIHdd][maxJHdd].CPUFrequency} GHz" +
+                                                                                                      $" | HDD: {computersArray[maxIHdd][maxJHdd].CPUHdd} GB" +
+                                                                                                      $" | Department: {maxIHdd + 1}" +
+                                                                                                      $" | No: {maxJHdd + 1}");
+            //9 (with Cortege)           
+            Console.WriteLine(new String('-', 50));
+            Console.WriteLine($"Competer with lowest produxtivity: \nType: {computersArray[minPerfij.i][minPerfij.j].type} | Cores of CPU: {computersArray[minPerfij.i][minPerfij.j].CPUcores}" +
+                                                                                                      $" | RAM: {computersArray[minPerfij.i][minPerfij.j].CPUmemory} GB" +
+                                                                                                      $" | Frequency: {computersArray[minPerfij.i][minPerfij.j].CPUFrequency} GHz" +
+                                                                                                      $" | HDD: {computersArray[minPerfij.i][minPerfij.j].CPUHdd} GB" +
+                                                                                                      $" | Department: {minPerfij.i + 1}" +
+                                                                                                      $" | No: {minPerfij.j + 1}");
 
             // 10) make desktop upgrade: change memory up to 8
             // change value of memory to 8 for every desktop. Don't do it for other computers
             // Note: use loops and if-else statements
+
+            Console.WriteLine(new String('-', 50));
+            Console.WriteLine("After desktop upgrading:");
+
+            for (int i = 0; i < computersArray.Length; i++)
+            {
+                for (int j = 0; j < computersArray[i].Length; j++)
+                {
+                    if (computersArray[i][j].type == ComputerType.Desktop)
+                        computersArray[i][j].CPUmemory = 8;
+
+                    Console.WriteLine($"{j+1}. Type = {computersArray[i][j].type};  CPU = {computersArray[i][j].CPUcores};  RAM = {computersArray[i][j].CPUmemory};  HDD = {computersArray[i][j].CPUHdd}");
+                }
+                Console.WriteLine();
+            }
+
 
         }
 
