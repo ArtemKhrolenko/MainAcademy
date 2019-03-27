@@ -90,20 +90,7 @@ namespace CSharp_Net_module1_1_4_lab
                                                   new Computer(ComputerType.Laptop),
                                                   new Computer(ComputerType.Server),
                                                   new Computer(ComputerType.Server)};
-
-
-            //Console.WriteLine("All computers: \n");
-            //int i = 0;
-            //foreach (var item in computersArray)
-            //{
-            //    Console.WriteLine($"Department# {++i}");
-            //    foreach (Computer comp in item)
-            //    {
-            //        Console.WriteLine($"Type = {comp.type};  CPU = {comp.CPUcores};  RAM = {comp.CPUmemory};  HDD = {comp.CPUHdd}");
-            //    }
-            //    Console.WriteLine();
-            //}
-
+                                  
 
             // 5) initialize array
             // Note: use loops and if-else statements
@@ -132,8 +119,8 @@ namespace CSharp_Net_module1_1_4_lab
             int maxIHdd = -1, maxJHdd = -1;
 
             double pcPerfCoef = double.MaxValue;
-            var minPerfij = (i:-1, j:-1);
-            
+            var minPerfij = (i:-1, j:-1);            
+
             //int minIPerf = -1, minPerf = -1;
 
             for (int i = 0; i < computersArray.Length; i++)
