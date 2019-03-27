@@ -128,6 +128,7 @@ namespace CSharp_Net_module1_1_4_lab
                 for (int j = 0; j < computersArray[i].Length; j++)
                 {
                     //6
+                    //7
                     if (computersArray[i][j].type == ComputerType.Desktop)
                         desktopPCCount++;
                     else if (computersArray[i][j].type == ComputerType.Laptop)

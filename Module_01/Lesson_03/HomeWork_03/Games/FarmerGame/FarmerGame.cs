@@ -17,23 +17,23 @@ namespace Games.FarmerGame
         internal FarmerGame()
         {
             //Initalize Left Bank Stuff
-            leftBankStuff = new ArrayList { new Wolf(), new Goat(), new Cabbage(), new Farmer()};
+            leftBankStuff = new ArrayList { new Wolf(), new Goat(), new Cabbage(), new Farmer() };
 
             //Initalize Right Bank Stuff (Empty Bank)
-            rightBankStuff = new ArrayList { 0,0,0,0};            
+            rightBankStuff = new ArrayList { 0, 0, 0, 0 };
 
             isOnTheRightBank = false; // Stuff are on the left Bnk
 
         }
 
-        internal void PrintVariants(ArrayList _stuff) 
+        internal void PrintVariants(ArrayList _stuff)
         {
             Console.WriteLine(isOnTheRightBank ? "<======" : "======>");
 
             for (int i = 0; i < _stuff.Count; i++)
             {
-               if (_stuff[i] is Stuff)
-                {                    
+                if (_stuff[i] is Stuff)
+                {
                     Console.WriteLine(String.Format("{0, -12} ----- {1}", ((Stuff)_stuff[i]).Name, i + 1));
                 }
             }
@@ -57,7 +57,7 @@ namespace Games.FarmerGame
             {
                 Console.WriteLine("OOps! The Wolf eats the Goat!!!");
             }
-            
+
             else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -68,7 +68,7 @@ namespace Games.FarmerGame
                 {
                     leftBankStuff[currentChoice - 1] = currentStuff[currentChoice - 1];
                     leftBankStuff[3] = currentStuff[3]; //Farmer arrives on the left bank
-                    
+
                 }
                 else
                 {
@@ -88,21 +88,21 @@ namespace Games.FarmerGame
             foreach (var item in _stuff)
             {
                 if (!(item is Stuff))
-                    return false;                
-            }        
+                    return false;
+            }
             return true;
         }
 
         public void StartGame()
-        {            
+        {
             string choiceStr;
 
             do
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Gray;
-                
-                currentStuff = isOnTheRightBank? rightBankStuff : leftBankStuff;
+
+                currentStuff = isOnTheRightBank ? rightBankStuff : leftBankStuff;
                 PrintVariants(currentStuff);           //Print stuff on the current bank
 
                 Console.WriteLine("Please Make your choice:");
@@ -114,7 +114,7 @@ namespace Games.FarmerGame
 
                 Console.WriteLine("Press any key to cintinue");
                 Console.ReadLine();
-                
+
             }
             while (!isAllOnTheRightBank(rightBankStuff)); //Untill right bank will be filled with all of items (walf, goat and cabbage)
 
@@ -123,8 +123,8 @@ namespace Games.FarmerGame
             Console.WriteLine("Congratulations!! You are win!!");
 
             Console.ReadLine();
-            
-           
+
+
         }
     }
 }
