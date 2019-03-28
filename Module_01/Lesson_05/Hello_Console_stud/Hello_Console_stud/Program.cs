@@ -81,38 +81,77 @@ namespace Hello_Console_stud
             Int32.TryParse(Console.ReadLine(), out int num);
             string str = "";
 
-            do
-            {
-                str = str.Insert(0, (num % 2).ToString());
-                num /= 2;
-            }
-            while (num != 0);
+            #region while loop
+            //do
+            //{
+            //    str = str.Insert(0, (num % 2).ToString());
+            //    num /= 2;
+            //}
+            //while (num != 0)
+
+            #endregion
 
             //Recursion
-            //getBinary(num, ref str);
-            Console.WriteLine($"Binary string from {num} = {str}");
-
+            getBinary(num, ref str);
+            Console.WriteLine($"Binary string from {num} = {str.PadLeft(((str.Length - 1) / 4 + 1) * 4 , '0')}");
+            
         }
         #endregion
 
         #region ToFromUnary
         static void My_strings()
         {
-           //Declare int and string variables for decimal and binary presentations
+            //Declare int and string variables for decimal and binary presentations
+            int a, b;
+            string aStr = string.Empty, bStr = string.Empty, resStr = string.Empty;
 
-           //Implement two positive integer variables input
+            //Implement two positive integer variables input
+            Console.WriteLine("Enter first positive number: ");
 
-           //To present each of them in the form of unary string use for loop
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
 
-           //Use concatenation of these two strings 
-           //Note it is necessary to use some symbol ( for example “#”) to separate
+            a = (int)uint.Parse(Console.ReadLine());
 
-           //Check the numbers on the equality 0
-           //Realize the  algorithm for replacing '1#1' to '#' by using the for loop 
-           //Delete the '#' from algorithm result
+            Console.ForegroundColor = ConsoleColor.Yellow;
 
-           //Output the result 
-         }
+            b = (int)uint.Parse(Console.ReadLine());
+
+            //To present each of them in the form of unary string use for loop
+
+            //Use concatenation of these two strings 
+            //Note it is necessary to use some symbol ( for example “#”) to separate
+
+            //Check the numbers on the equality 0
+            //Realize the  algorithm for replacing '1#1' to '#' by using the for loop 
+            //Delete the '#' from algorithm result
+            
+
+            for (int i = 0; i < a; i++)
+            {
+                aStr += "1";
+            }
+
+            for (int i = 0; i < b; i++)
+            {
+                bStr += "1";
+            }
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+
+            resStr = aStr + "#" + bStr;
+            Console.WriteLine($"aSTr + bSTr = {resStr}");            
+
+            Console.WriteLine();                       
+            
+            while (resStr.Contains("#"))
+            {
+                resStr = resStr.Contains("1#1") ? resStr.Replace("1#1", "#") : resStr.Replace("#", string.Empty);
+            }
+
+            //Output the result 
+            Console.WriteLine($"Unary result: {resStr}");
+
+        }
         #endregion
 
         #region My_music
@@ -176,8 +215,9 @@ namespace Hello_Console_stud
 
         #region Morse
         static void Morse_code()
-        {   
+        {
             //Create string variable for 'sos'      
+            string str = "Mama mila ramu";
 
             //Use string array for Morse code
             string[,] Dictionary_arr = new string [,] { { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" },
@@ -185,8 +225,39 @@ namespace Hello_Console_stud
             //Use ToCharArray() method for string to copy charecters to Unicode character array
             //Use foreach loop for character array in which
 
-                //Implement Console.Beep(1000, 250) for '.'
-                // and Console.Beep(1000, 750) for '-'
+            //Implement Console.Beep(1000, 250) for '.'
+            // and Console.Beep(1000, 750) for '-'
+
+            
+            foreach (char item in str.ToLower().ToCharArray())
+            {                
+                for (int i = 0; i < Dictionary_arr.GetLength(1); i++)
+                {
+                    if (char.Parse(Dictionary_arr[0, i]) == item)
+                    {
+                        string someStr = Dictionary_arr[1, i].Trim();
+                        foreach (char beepItem in someStr.ToCharArray())
+                        {
+
+                            if (beepItem == '.')
+                            {
+                                Console.Beep(1000, 250);
+                                Thread.Sleep(10);
+                            }
+                            else if(beepItem == '-')
+                            {
+                                Console.Beep(1000, 750);
+                                Thread.Sleep(10);
+                            }                            
+                            
+                            Console.Write(new string(beepItem, 1));                            
+                        }
+                        Console.Write(" ");
+                    }
+                    Thread.Sleep(20);
+                }
+                if (item == ' ') Console.Write("   ");
+            }
 
                 //Use Thread.Sleep(50) to separate sounds
             //                  
