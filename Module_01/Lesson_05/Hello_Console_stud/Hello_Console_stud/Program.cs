@@ -65,8 +65,9 @@ namespace Hello_Console_stud
         #region ToFromBinary
         static void My_Binary()
         {
-            //Implement positive integer variable input
+            Console.Clear();
 
+            //Implement positive integer variable input
             //Present it like binary string
             //   For example, 4 as 100
 
@@ -75,6 +76,21 @@ namespace Hello_Console_stud
 
             //Use the ToCharArray() method to transform string to chararray
             //and Array.Reverse() method
+
+            Console.Write("Enter positive number: ");
+            Int32.TryParse(Console.ReadLine(), out int num);
+            string str = "";
+
+            do
+            {
+                str = str.Insert(0, (num % 2).ToString());
+                num /= 2;
+            }
+            while (num != 0);
+
+            //Recursion
+            //getBinary(num, ref str);
+            Console.WriteLine($"Binary string from {num} = {str}");
 
         }
         #endregion
@@ -177,5 +193,15 @@ namespace Hello_Console_stud
         }
 
         #endregion
+
+        //For ToBinary String recursion
+        static void getBinary(int a, ref string str)
+        {
+            if (a > 1)
+                getBinary(a / 2, ref str);
+            str += (a % 2).ToString();
+        }
     }
+
+    
 }
