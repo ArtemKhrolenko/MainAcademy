@@ -249,7 +249,7 @@ namespace Hello_Console_stud
                                 Thread.Sleep(10);
                             } 
                             else if (beepItem == ' ')
-                                Thread.Sleep(200);
+                                Thread.Sleep(300);
 
                             Console.Write(new string(beepItem, 1));                            
                         }
