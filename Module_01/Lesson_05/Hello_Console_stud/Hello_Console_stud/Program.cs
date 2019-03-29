@@ -234,27 +234,28 @@ namespace Hello_Console_stud
                 for (int i = 0; i < Dictionary_arr.GetLength(1); i++)
                 {
                     if (char.Parse(Dictionary_arr[0, i]) == item)
-                    {
-                        string someStr = Dictionary_arr[1, i].Trim();
-                        foreach (char beepItem in someStr.ToCharArray())
+                    {                        
+                        foreach (char beepItem in Dictionary_arr[1, i].ToCharArray())
                         {
 
                             if (beepItem == '.')
                             {
-                                Console.Beep(1000, 250);
+                                Console.Beep(1000, 100);
                                 Thread.Sleep(10);
                             }
                             else if(beepItem == '-')
                             {
-                                Console.Beep(1000, 750);
+                                Console.Beep(1000, 250);
                                 Thread.Sleep(10);
-                            }                            
-                            
+                            } 
+                            else if (beepItem == ' ')
+                                Thread.Sleep(200);
+
                             Console.Write(new string(beepItem, 1));                            
                         }
                         Console.Write(" ");
                     }
-                    Thread.Sleep(20);
+                    //Thread.Sleep(10);
                 }
                 if (item == ' ') Console.Write("   ");
             }
