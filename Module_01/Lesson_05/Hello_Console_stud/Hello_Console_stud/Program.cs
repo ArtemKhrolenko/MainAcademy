@@ -7,6 +7,9 @@ namespace Hello_Console_stud
     {
         static void Main(string[] args)
         {
+            //Console.WriteLine("asdadsdad".ToCharArray().someMethod());
+            Console.WriteLine($"{new char[]{ 'a','b','c'}.ToString()}");
+            
             int a;
             try
             {
@@ -251,7 +254,7 @@ namespace Hello_Console_stud
                             else if (beepItem == ' ')
                                 Thread.Sleep(300);
 
-                            Console.Write(new string(beepItem, 1));                            
+                            Console.Write(beepItem);                            
                         }
                         Console.Write(" ");
                     }
@@ -275,5 +278,12 @@ namespace Hello_Console_stud
         }
     }
 
-    
+    public static class Someclass
+    {
+       public static string ToString(this char[] ch, IFormatProvider provider)
+        {
+            return new string(ch);
+        }
+    }
+        
 }
