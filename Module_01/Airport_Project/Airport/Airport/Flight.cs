@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Airport
 {   
-    internal struct Flight
+    internal struct Flight : IComparable
     {        
         internal string       flightID;      //Flight ID
         internal DateTime     time;          //Time of arrival (departure)
@@ -17,18 +17,19 @@ namespace Airport
         internal string       airCompany;    //Air Company ID
         internal char         terminal;      //Airport terminal
         internal string       gateID;        //Airport Gate ID
-        internal FlightStatus flightStatus;  //Status of Flight
-
-
+        internal FlightStatus flightStatus;  //Status of Flight        
+        private Random rnd;
 
         //For random implicit fields initalization
-        public Flight(FlightDirection direction) : this()
+        public Flight(Random _rnd) : this()
         {
-            RandomInitalizeFlight(direction);
+            rnd = _rnd;
+            RandomInitalizeFlight(_rnd);
+            
         }
 
         //For explicit fields initalization
-        public Flight(string flightID, DateTime time, string cityName, string airCompany, char terminal, string gateID, FlightStatus flightStatus)
+        public Flight(string flightID, DateTime time, string cityName, string airCompany, char terminal, string gateID, FlightStatus flightStatus) : this()
         {           
             this.flightID = flightID;
             this.time = time;
@@ -39,9 +40,16 @@ namespace Airport
             this.flightStatus = flightStatus;
         }
 
-        private void RandomInitalizeFlight(FlightDirection _direction)
+        public int CompareTo(object obj)
         {
-            Random rnd = new Random();
+            if (obj is Flight)
+                return this.time.CompareTo(((Flight)obj).time);
+            else
+                return -1;
+        }
+
+        private void RandomInitalizeFlight(Random rnd)
+        {   
             //random Flight ID Initalization
             flightID = AirportData.flights[rnd.Next(AirportData.flights.Length)];
 
@@ -64,7 +72,7 @@ namespace Airport
             //random Flight status initialization
             Array flightStsItems = Enum.GetValues(typeof(FlightStatus));
             flightStatus = (FlightStatus)flightStsItems.GetValue(rnd.Next(flightStsItems.Length));
-
+            
         }
 
     }
