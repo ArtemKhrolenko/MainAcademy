@@ -227,7 +227,8 @@ namespace Airport
                             default:
                                 PrintIncorrectInputString();                                                                
                                 break;
-                                //return;                            
+
+                                //return!!!;                            
                         }
                         Console.ReadKey();
                     }
