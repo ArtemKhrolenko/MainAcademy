@@ -53,26 +53,8 @@ namespace Airport
                         break;
                 }
             }
-            while (!exitBit);
-
+            while (!exitBit);            
             
-            //Console.ReadKey();
-
-
-            #region printValues
-            //foreach(var item in Enum.GetValues(typeof(FlightStatus)))
-            //{
-            //    Console.WriteLine(((FlightStatus)item).GetDescription());
-            //}
-
-            //ConsoleKeyInfo cki;
-            //do
-            //{
-
-            //}
-            //while (Console.ReadKey().Key != ConsoleKey.Spacebar);           
-            #endregion
-
         }
 
         
@@ -158,7 +140,7 @@ namespace Airport
                         switch (numOfItemToEdit)
                         {
                             case 0:                                
-                                return;
+                                break;
                             case 1: //FlightID                            
                                 _flights[numOfFlightToEdit - 1].flightID = ChangeItemInDesk("flight ID", flightItem.flightID);
                                 break;
@@ -178,8 +160,8 @@ namespace Airport
                                     PrintIncorrectInputString();
                                     isCorrectChoice = false; //Continue loop
                                     Console.WriteLine();
-
                                 }
+                                Console.ReadKey();
                                 break;
 
                             case 3: //City                            
@@ -216,21 +198,21 @@ namespace Airport
                                     Console.ForegroundColor = ConsoleColor.Green;
                                     Console.WriteLine($"Flight status changed from \"{flightItem.flightStatus.GetDescription()}\" to \"{((FlightStatus)_flightStatusIndex - 1).GetDescription()}\"");
                                     _flights[numOfFlightToEdit - 1].flightStatus = (FlightStatus)_flightStatusIndex - 1;
+                                    Console.ReadKey();
                                 }
                                 else
                                 {
                                     PrintIncorrectInputString();
                                 }
-
+                                
                                 break;
 
                             default:
                                 PrintIncorrectInputString();                                                                
                                 break;
-
                                 //return!!!;                            
                         }
-                        Console.ReadKey();
+                        //Console.ReadKey();
                     }
                     
                 }
@@ -248,7 +230,8 @@ namespace Airport
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{itemName} was changed to {strNewValue}. Press any key to Continue...");
-            Console.ForegroundColor = ConsoleColor.Gray;            
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ReadKey();
             return strNewValue;
         }
 
@@ -269,7 +252,8 @@ namespace Airport
             {
                 charItem = '?';
                 PrintIncorrectInputString();
-            }            
+            }
+            Console.ReadKey();
             return charItem;
         }
 
@@ -279,6 +263,7 @@ namespace Airport
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Incorrect input Data. Press any key to continue editing...");
             Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ReadKey();
         }
 
 
