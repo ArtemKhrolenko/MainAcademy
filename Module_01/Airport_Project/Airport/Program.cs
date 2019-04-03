@@ -178,6 +178,7 @@ namespace Airport
                                     PrintIncorrectInputString();
                                     isCorrectChoice = false; //Continue loop
                                     Console.WriteLine();
+
                                 }
                                 break;
 
