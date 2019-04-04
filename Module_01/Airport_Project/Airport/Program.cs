@@ -145,23 +145,9 @@ namespace Airport
                                 _flights[numOfFlightToEdit - 1].flightID = ChangeItemInDesk("flight ID", flightItem.flightID);
                                 break;
 
-                            case 2: //Time                            
-                                Console.WriteLine("Editing Time");
-                                Console.Write($"Change flight ID from {flightItem.time.Hour}:{flightItem.time.Minute} to (in HH:mm format)...:  ");
-                                string timeStr = Console.ReadLine();
-                                try
-                                {
-                                    _flights[numOfFlightToEdit - 1].time = DateTime.ParseExact(timeStr + ":00", "HH:mm:ss", CultureInfo.InvariantCulture);
-                                    Array.Sort(_flights);
-                                    Console.WriteLine($"Time changed to {_flights[numOfFlightToEdit - 1].time.Hour.ToString("D2")}:{_flights[numOfFlightToEdit - 1].time.Minute.ToString("D2")}");
-                                }
-                                catch (Exception e)
-                                {
-                                    PrintIncorrectInputString();
-                                    isCorrectChoice = false; //Continue loop
-                                    Console.WriteLine();
-                                }
-                                Console.ReadKey();
+                            case 2: //Time  
+                                _flights[numOfFlightToEdit - 1].time = ChangeItemInDesk("Time", flightItem.time);                                
+                                Array.Sort(_flights);
                                 break;
 
                             case 3: //City                            
@@ -255,6 +241,29 @@ namespace Airport
             }
             Console.ReadKey();
             return charItem;
+        }
+
+        //Method for changing time Items in Flight Structure
+        private static DateTime ChangeItemInDesk(string itemName, DateTime oldItemValue)
+        {
+            Console.WriteLine($"Editing {itemName}");            
+            Console.Write($"Change time from {oldItemValue.Hour}:{oldItemValue.Minute} to (in HH:mm format)...:  ");
+
+            DateTime _newDateTime = DateTime.Now;
+            try
+            {
+                _newDateTime = DateTime.ParseExact(Console.ReadLine() + ":00", "HH:mm:ss", CultureInfo.InvariantCulture);
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Time changed to {_newDateTime.Hour.ToString("D2")}:{_newDateTime.Minute.ToString("D2")}. Press any key to continue...");
+            }
+            catch (Exception e)
+            {
+                _newDateTime = new DateTime();
+                PrintIncorrectInputString(); 
+            }            
+            Console.ReadKey();
+            return _newDateTime;
         }
 
         //Method for printing IncorrectInput String
