@@ -254,8 +254,9 @@ namespace Airport
             }
             else
             {
-                charItem = '?';
                 PrintIncorrectInputString();
+                return '?';
+                
             }
 
             Console.ResetColor();
