@@ -35,10 +35,5 @@ namespace Airport
         [Description("In Flight")]
         IN_FLIGHT
     }
-
-    public enum FlightDirection
-    {
-        ARRIVE,
-        DEPARTURE
-    }
+    
 }

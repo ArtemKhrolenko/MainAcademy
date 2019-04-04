@@ -17,7 +17,8 @@ namespace Airport
         internal string       airCompany;    //Air Company ID
         internal char         terminal;      //Airport terminal
         internal string       gateID;        //Airport Gate ID
-        internal FlightStatus flightStatus;  //Status of Flight        
+        internal FlightStatus flightStatus;  //Status of Flight     
+        internal DateTime     statusTime;    //Status Time
         private Random rnd;
 
         //For random implicit fields initalization

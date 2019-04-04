@@ -22,8 +22,7 @@ namespace Airport
             arrivalFlights = DeskTableInit();
             departureFlights = DeskTableInit();
 
-            //Main menu loop
-            bool exitBit = false;
+            //Main menu loop            
             do
             {
                 Console.Clear();
@@ -39,8 +38,8 @@ namespace Airport
                 switch (choice)
                 {
                     case 0:
-                        exitBit = true;
-                        break;
+                        return;
+                        
                     case 1:                                          
                         EditFlight(arrivalFlights, arrivalStr);
                         break;
@@ -53,7 +52,7 @@ namespace Airport
                         break;
                 }
             }
-            while (!exitBit);            
+            while (true);            
             
         }
 
@@ -63,18 +62,22 @@ namespace Airport
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(_direction);
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine(new String('-', 90));            
+            Console.WriteLine(String.Format("{7, 2} | {0,-8} | {1, -5} | {2,-10} | {3,-12} | {4, -9} | {5,-4} | {6, -17} |", " Flight", " Time", "   City", " Air company", "Terminal", "Gate", "   Status", "#"));            
+            Console.WriteLine(new String('-', 90));
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.WriteLine(new String('-', 88));
-            Console.WriteLine(String.Format("{7, 2} | {0,-8} | {1, -5} | {2,-10} | {3,-12} | {4, -9} | {5,-4} | {6, -15} |", " Flight", " Time", "   City", " Air company", "Terminal", "Gate", "   Status", "#"));
-            Console.WriteLine(new String('-', 88));
+            string tmpTimeStr;
 
             for (int i = 0; i < flightDesk.Length; i++)
             {
                 Flight flightItem = flightDesk[i];
-                Console.WriteLine(String.Format("{8, 2} | {0,-8} | {1}:{2} | {3,-10} | {4,-12} | {5, -9} | {6,-4} | {7, -15} |",flightItem.flightID, flightItem.time.Hour.ToString("D2"), flightItem.time.Minute.ToString("D2"), flightItem.cityName, flightItem.airCompany, flightItem.terminal, flightItem.gateID, flightItem.flightStatus.GetDescription(), i+1));
+                tmpTimeStr = flightItem.flightStatus == FlightStatus.DEPARTED_AT || flightItem.flightStatus == FlightStatus.EXPECTED_AT ? flightItem.statusTime.Hour.ToString("D2") + ":" + flightItem.statusTime.Minute.ToString("D2") : "";                
+                Console.WriteLine(String.Format("{8, 2} | {0,-8} | {1}:{2} | {3,-10} | {4,-12} | {5, -9} | {6,-4} | {7, -11} {9, -5} |",
+                    flightItem.flightID, flightItem.time.Hour.ToString("D2"), flightItem.time.Minute.ToString("D2"), flightItem.cityName, flightItem.airCompany, flightItem.terminal, flightItem.gateID, flightItem.flightStatus.GetDescription(), i+1, tmpTimeStr));
             }
 
-            Console.WriteLine(new String('-', 88));
+            Console.WriteLine(new String('-', 90));
 
             Console.ForegroundColor = ConsoleColor.Gray;
         }
@@ -90,7 +93,8 @@ namespace Airport
             {
                 _deskTable[i] = new Flight(rnd); //random initalization
             }
-            Array.Sort(_deskTable);
+            //Array.Sort(_deskTable);
+            BubbleSort(_deskTable);
             return _deskTable;
         }
         
@@ -140,14 +144,15 @@ namespace Airport
                         switch (numOfItemToEdit)
                         {
                             case 0:                                
-                                break;
+                                return;
                             case 1: //FlightID                            
                                 _flights[numOfFlightToEdit - 1].flightID = ChangeItemInDesk("flight ID", flightItem.flightID);
                                 break;
 
                             case 2: //Time  
-                                _flights[numOfFlightToEdit - 1].time = ChangeItemInDesk("Time", flightItem.time);                                
-                                Array.Sort(_flights);
+                                _flights[numOfFlightToEdit - 1].time = ChangeItemInDesk("Time", flightItem.time);
+                                //Array.Sort(_flights);
+                                BubbleSort(_flights);
                                 break;
 
                             case 3: //City                            
@@ -180,10 +185,17 @@ namespace Airport
 
                                 //Checking for correct input for the status of Flight
                                 if (isEnumValue && _flightStatusIndex > 0 && _flightStatusIndex <= Enum.GetValues(typeof(FlightStatus)).Length)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine($"Flight status changed from \"{flightItem.flightStatus.GetDescription()}\" to \"{((FlightStatus)_flightStatusIndex - 1).GetDescription()}\"");
+                                {   
                                     _flights[numOfFlightToEdit - 1].flightStatus = (FlightStatus)_flightStatusIndex - 1;
+
+                                    //if Status == Departed At OR Departed AT - ask user about exat time of departing or excepting
+                                    if ((FlightStatus)_flightStatusIndex - 1 == FlightStatus.DEPARTED_AT || (FlightStatus)_flightStatusIndex - 1 == FlightStatus.EXPECTED_AT)
+                                    {                                        
+                                        _flights[numOfFlightToEdit - 1].statusTime = ChangeItemInDesk("Time of Departure or Arrival", flightItem.statusTime);
+                                    }
+
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine($"Flight status changed from \"{flightItem.flightStatus.GetDescription()}\" to \"{((FlightStatus)_flightStatusIndex - 1).GetDescription()}\". Press any key to Continue...");
                                     Console.ReadKey();
                                 }
                                 else
@@ -209,14 +221,17 @@ namespace Airport
         
         //Method for changing string Items in Flight Structure
         private static string ChangeItemInDesk(string itemName, string oldItemValue)
-        {            
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"Editing {itemName}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             Console.Write($"Change {itemName} from {oldItemValue} to...:  ");
             string strNewValue = Console.ReadLine();
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{itemName} was changed to {strNewValue}. Press any key to Continue...");
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ResetColor();
             Console.ReadKey();
             return strNewValue;
         }
@@ -224,7 +239,10 @@ namespace Airport
         //Method for changing character Items in Flight Structure
         private static char ChangeItemInDesk(string itemName, char oldItemValue)
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"Editing {itemName}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+
             Console.Write($"Change {itemName} from {oldItemValue} to...:  ");
             
             if (Char.TryParse(Console.ReadLine(), out char charItem))
@@ -239,6 +257,8 @@ namespace Airport
                 charItem = '?';
                 PrintIncorrectInputString();
             }
+
+            Console.ResetColor();
             Console.ReadKey();
             return charItem;
         }
@@ -246,8 +266,10 @@ namespace Airport
         //Method for changing time Items in Flight Structure
         private static DateTime ChangeItemInDesk(string itemName, DateTime oldItemValue)
         {
-            Console.WriteLine($"Editing {itemName}");            
-            Console.Write($"Change time from {oldItemValue.Hour}:{oldItemValue.Minute} to (in HH:mm format)...:  ");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine($"Editing {itemName}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write($"Change time from {oldItemValue.Hour.ToString("D2")}:{oldItemValue.Minute.ToString("D2")} to (in HH:mm format)...:  ");
 
             DateTime _newDateTime = DateTime.Now;
             try
@@ -259,9 +281,11 @@ namespace Airport
             }
             catch (Exception e)
             {
-                _newDateTime = new DateTime();
-                PrintIncorrectInputString(); 
-            }            
+                
+                PrintIncorrectInputString();
+                return new DateTime();
+            }
+            Console.ResetColor();
             Console.ReadKey();
             return _newDateTime;
         }
@@ -273,6 +297,25 @@ namespace Airport
             Console.WriteLine("Incorrect input Data. Press any key to continue editing...");
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.ReadKey();
+        }
+
+        //Method for sorting Table
+        private static void BubbleSort(Flight[] flightDesk)
+        {
+            Flight tmpFlight;
+            
+            for (int i = 0; i < flightDesk.Length - 1; i++)
+            {
+                for (int j = 0 ; j < flightDesk.Length - 1 - i; j++)
+                {
+                    if (flightDesk[j].time > flightDesk[j + 1].time)
+                    {
+                        tmpFlight = flightDesk[j + 1];
+                        flightDesk[j + 1] = flightDesk[j];
+                        flightDesk[j] = tmpFlight;
+                    }
+                }
+            }
         }
 
 
