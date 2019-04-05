@@ -38,8 +38,7 @@ namespace Airport
                 switch (choice)
                 {
                     case 0:
-                        return;
-                        
+                        return;                        
                     case 1:                                          
                         EditFlight(arrivalFlights, arrivalStr);
                         break;
@@ -47,9 +46,7 @@ namespace Airport
                         EditFlight(departureFlights, departStr);
                         break;                    
                     default:
-                        //PrintIncorrectInputString(false);
-                        Console.ReadKey();
-                        break;
+                        return;                        
                 }
             }
             while (true);            
@@ -122,8 +119,7 @@ namespace Airport
                     PrintIncorrectInputString(ref goAhead);  
                 }
                 else
-                {
-                    bool goAheadL2 = true;
+                {                    
                     while (goAhead)
                     {
                         Console.Clear();
