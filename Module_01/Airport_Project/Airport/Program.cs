@@ -178,7 +178,7 @@ namespace Airport
 
                                 Console.Clear();
                                 printTable(_flights, _direction);
-                                _flights[numOfFlightToEdit - 1].terminal = ChangeItemInDesk("Terminal", flightItem.terminal, ref goAheadL2);
+                                _flights[numOfFlightToEdit - 1].terminal = ChangeItemInDesk("Terminal", flightItem.terminal, ref goAhead);
                                 break;
 
                             case 6: //Gate
@@ -210,7 +210,7 @@ namespace Airport
                                     //if Status == Departed At OR Departed AT - ask user about exat time of departing or excepting
                                     if ((FlightStatus)_flightStatusIndex - 1 == FlightStatus.DEPARTED_AT || (FlightStatus)_flightStatusIndex - 1 == FlightStatus.EXPECTED_AT)
                                     {                                        
-                                        _flights[numOfFlightToEdit - 1].statusTime = ChangeItemInDesk("Time of Departure or Arrival", flightItem.statusTime, ref goAheadL2);
+                                        _flights[numOfFlightToEdit - 1].statusTime = ChangeItemInDesk("Time of Departure or Arrival", flightItem.statusTime, ref goAhead);
                                     }
 
                                     Console.ForegroundColor = ConsoleColor.Green;
@@ -219,7 +219,7 @@ namespace Airport
                                 }
                                 else
                                 {
-                                    PrintIncorrectInputString(ref goAheadL2);
+                                    PrintIncorrectInputString(ref goAhead);
                                 }
                                 
                                 break;
