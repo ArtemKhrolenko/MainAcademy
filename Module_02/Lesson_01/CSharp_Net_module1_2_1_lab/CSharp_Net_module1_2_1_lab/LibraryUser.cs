@@ -59,19 +59,20 @@ namespace CSharp_Net_module1_2_1_lab
 
         #region Constructors
         // 6) declare constructors: default and parameter
-        public LibraryUser()
+        public LibraryUser() : this("Unknown", "Unknown", "***-**-**", 5)
         {
-            Id = ++userCount;
-            bookList = new string[BookLimit + 1]; //Creating string array for books
+            
         }
-        public LibraryUser(string firstName, string lastName, string phone, int bookLimit) : this()
-        {           
-
+        public LibraryUser(string firstName, string lastName, string phone, int bookLimit) 
+        {            
             FirstName = firstName;
             LastName = lastName;            
             Phone = phone;
             BookLimit = bookLimit;
-            
+            Id = ++userCount;
+
+            bookList = new string[BookLimit]; //Creating string array for books
+
         }
 
         #endregion
@@ -81,11 +82,17 @@ namespace CSharp_Net_module1_2_1_lab
 
         //AddBook() – add new book to array bookList
         public void AddBook(string bookName)
-        {           
-
+        {
+            Console.WriteLine($"Adding the book \"{bookName}\"...");
             if (bookList.Contains(bookName))
             {
                 Console.WriteLine($"The book \"{bookName}\" is already in a list!");
+                return;
+            }
+            
+            if (this.BooksCount() == BookLimit)
+            {
+                Console.WriteLine("Too many books for current user...");
                 return;
             }
 
@@ -94,6 +101,7 @@ namespace CSharp_Net_module1_2_1_lab
                 if (bookList[i] == null)
                 {
                     bookList[i] = bookName;
+                    Console.WriteLine($"The book \"{bookName}\" has added");
                     return;
                 }
             }
@@ -127,7 +135,12 @@ namespace CSharp_Net_module1_2_1_lab
         //BooksCout() – returns current count of books
         public int BooksCount()
         {
-            throw new NotImplementedException();
+            int bookCount = 0;
+            foreach (var item in bookList)
+            {
+                bookCount = item == null ? bookCount : ++bookCount;
+            }
+            return bookCount;
         }
         #endregion
 
