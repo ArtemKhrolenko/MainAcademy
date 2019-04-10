@@ -27,7 +27,7 @@ namespace CSharp_Net_module1_2_1_lab
         // 3) declare properties: FirstName (read only), LastName (read only), 
         // Id (read only), Phone (get and set), BookLimit (read only)
         // 4) declare field (bookList) as a string array
-        private static int userCount;
+        private static int _userCount;
 
         private string[] bookList;
 
@@ -59,7 +59,7 @@ namespace CSharp_Net_module1_2_1_lab
 
         #region Constructors
         // 6) declare constructors: default and parameter
-        public LibraryUser() : this("Unknown", "Unknown", "***-**-**", 5)
+        public LibraryUser() : this("Unknown", "Unknown", "***-**-**", bookLimit: 5)
         {
             
         }
@@ -69,7 +69,7 @@ namespace CSharp_Net_module1_2_1_lab
             LastName = lastName;            
             Phone = phone;
             BookLimit = bookLimit;
-            Id = ++userCount;
+            Id = ++_userCount;
 
             bookList = new string[BookLimit]; //Creating string array for books
 
@@ -90,21 +90,24 @@ namespace CSharp_Net_module1_2_1_lab
                 return;
             }
             
-            if (this.BooksCount() == BookLimit)
+            
+            if (BooksCount() == BookLimit)
             {
                 Console.WriteLine("Too many books for current user...");
                 return;
             }
 
-            for (int i = 0; i < bookList.Length; i++)
-            {                
-                if (bookList[i] == null)
-                {
-                    bookList[i] = bookName;
-                    Console.WriteLine($"The book \"{bookName}\" has added");
-                    return;
-                }
-            }
+            bookList[BooksCount()] = bookName;
+
+            //for (int i = 0; i < bookList.Length; i++)
+            //{                
+            //    if (bookList[i] == null)
+            //    {
+            //        bookList[i] = bookName;
+            //        Console.WriteLine($"The book \"{bookName}\" has added");
+            //        return;
+            //    }
+            //}
         }
 
 

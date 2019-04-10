@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classork_03
+namespace ClassWork_01
 {
     class Program
     {

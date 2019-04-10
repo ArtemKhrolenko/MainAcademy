@@ -15,10 +15,10 @@ namespace Airport
                                     
         static void Main(string[] args)
         {
-            //Console adjastment
+            //Console adjustment
             Console.WindowHeight = 35;
 
-            //DeskTableInit tables initalization
+            //DeskTableInit tables initialization
             arrivalFlights = DeskTableInit();
             departureFlights = DeskTableInit();
 
@@ -29,8 +29,8 @@ namespace Airport
                 string arrivalStr = "Arrivals <<===== ";
                 string departStr = "Departures  =====>>";
 
-                printTable(arrivalFlights,   arrivalStr);
-                printTable(departureFlights, departStr);
+                PrintTable(arrivalFlights,   arrivalStr);
+                PrintTable(departureFlights, departStr);
 
                 Console.WriteLine("Edit Arrival: \t\tPress 1\nEdit Departures: \tPress 2\nTo Exit: \t\tPress 0");
                 
@@ -55,15 +55,16 @@ namespace Airport
 
         
         //Method for printing Desk Table
-        private static void printTable(Flight[] flightDesk, string _direction)
+        private static void PrintTable(Flight[] flightDesk, string _direction)
         {            
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(_direction);
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine(new String('-', 90));            
-            Console.WriteLine(String.Format("{7, 2} | {0,-8} | {1, -5} | {2,-10} | {3,-12} | {4, -9} | {5,-4} | {6, -17} |", " Flight", " Time", "   City", " Air company", "Terminal", "Gate", "   Status", "#"));            
-            Console.WriteLine(new String('-', 90));
+            Console.WriteLine(new string('-', 90));            
+            Console.WriteLine(string.Format("{7, 2} | {0,-8} | {1, -5} | {2,-10} | {3,-12} | {4, -9} | {5,-4} | {6, -17} |", " Flight", " Time", "   City", " Air company", "Terminal", "Gate", "   Status", "#"));            
+            Console.WriteLine(new string('-', 90));
             Console.ForegroundColor = ConsoleColor.DarkGray;
+
             string tmpTimeStr;
 
             for (int i = 0; i < flightDesk.Length; i++)
@@ -78,10 +79,10 @@ namespace Airport
 
             Console.ForegroundColor = ConsoleColor.Gray;
         }
-        
 
-        
-        //Method for Desk Table initalization
+
+
+        //Method for Desk Table initialization
         private static Flight[] DeskTableInit()        
         {
             Flight[] _deskTable = new Flight[deskTableLength];
@@ -107,7 +108,7 @@ namespace Airport
             do
             {
                 Console.Clear();
-                printTable(_flights, _direction);
+                PrintTable(_flights, _direction);
                 Console.Write($"Enter number of flight you want to edit...Or press 0 to exit...");
 
                 Int32.TryParse(Console.ReadLine(), out int numOfFlightToEdit);
@@ -125,7 +126,7 @@ namespace Airport
                         Console.Clear();
                         Console.ResetColor();
                         flightItem = _flights[numOfFlightToEdit - 1];                        
-                        printTable(_flights, _direction);
+                        PrintTable(_flights, _direction);
                         Console.WriteLine($"...Editing flight {flightItem.flightID} to(from) {flightItem.cityName}");
 
                         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -143,14 +144,14 @@ namespace Airport
                             case 1: //FlightID                      
 
                                 Console.Clear();
-                                printTable(_flights, _direction);
+                                PrintTable(_flights, _direction);
                                 _flights[numOfFlightToEdit - 1].flightID = ChangeItemInDesk("flight ID", flightItem.flightID, 8);
                                 break;
 
                             case 2: //Time   
 
                                 Console.Clear();
-                                printTable(_flights, _direction);
+                                PrintTable(_flights, _direction);
                                 _flights[numOfFlightToEdit - 1].time = ChangeItemInDesk("Time", flightItem.time, ref goAhead);                                
                                 //Array.Sort(_flights);
                                 BubbleSort(_flights);
@@ -159,34 +160,34 @@ namespace Airport
                             case 3: //City                            
 
                                 Console.Clear();
-                                printTable(_flights, _direction);
+                                PrintTable(_flights, _direction);
                                 _flights[numOfFlightToEdit - 1].cityName = ChangeItemInDesk("City", flightItem.cityName, 10);
                                 break;
 
                             case 4: //Air Company
 
                                 Console.Clear();
-                                printTable(_flights, _direction);
+                                PrintTable(_flights, _direction);
                                 _flights[numOfFlightToEdit - 1].airCompany = ChangeItemInDesk("Air Company", flightItem.airCompany, 12);
                                 break;
 
                             case 5: //Terminal                            
 
                                 Console.Clear();
-                                printTable(_flights, _direction);
+                                PrintTable(_flights, _direction);
                                 _flights[numOfFlightToEdit - 1].terminal = ChangeItemInDesk("Terminal", flightItem.terminal, ref goAhead);
                                 break;
 
                             case 6: //Gate
 
                                 Console.Clear();
-                                printTable(_flights, _direction);
+                                PrintTable(_flights, _direction);
                                 _flights[numOfFlightToEdit - 1].gateID = ChangeItemInDesk("Gate ID", flightItem.gateID, 4);
                                 break;
 
                             case 7:
                                 Console.Clear();
-                                printTable(_flights, _direction);
+                                PrintTable(_flights, _direction);
                                 Console.WriteLine("Editing Flight Status.\nChose the status to set...");
 
                                 //Printing All of statuses
