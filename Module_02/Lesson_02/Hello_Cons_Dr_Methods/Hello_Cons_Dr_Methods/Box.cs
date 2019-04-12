@@ -20,7 +20,7 @@ namespace Hello_Cons_Dr_Methods
         public int Height { get; set; }
         public Char BorderSymbol { get; set; }
         public string MessageInsideBox { get; set;}
-
+        
         //2.  Implement public Draw() method
         //to define start position, width and height, symbol, message  according to properties
         //Use Math.Min() and Math.Max() methods
@@ -54,23 +54,23 @@ namespace Hello_Cons_Dr_Methods
 
         public void Draw()
         {
-            int _startX = Math.Min(Math.Max(0, StartX), Console.WindowWidth - 5);
-            int _startY = Math.Min(Math.Max(0, StartY), Console.WindowHeight - 5);
-            int _height = Math.Max(5, Height);
-            int _width  = Math.Max(5, Width);
-            char _borderSymbol = BorderSymbol;
+            var startX = Math.Min(Math.Max(0, StartX), Console.WindowWidth - 5);
+            var startY = Math.Min(Math.Max(0, StartY), Console.WindowHeight - 5);
+            var height = Math.Max(5, Height);
+            var width  = Math.Max(5, Width);
+            var borderSymbol = BorderSymbol;
 
             #region Message handling
-            string _messageStr = MessageInsideBox;
-            _messageStr = _messageStr.Substring(0, Math.Min(_messageStr.Length, _width - 2));            
+            var messageStr = MessageInsideBox;
+            messageStr = messageStr.Substring(0, Math.Min(messageStr.Length, width - 2));            
 
-            string freeString = new string(' ', Math.Max(0, _width - 2 - _messageStr.Length) / 2);
-            _messageStr = string.Concat(freeString, _messageStr, freeString);
+            var freeString = new string(' ', Math.Max(0, width - 2 - messageStr.Length) / 2);
+            messageStr = string.Concat(freeString, messageStr, freeString);
             #endregion
 
 
 
-            Draw(StartX, StartY, Height, _width, BorderSymbol, _messageStr);
+            Draw(startX, startY, height, width, borderSymbol, messageStr);
         }
 
 
