@@ -11,7 +11,7 @@ namespace CSharp_Net_module1_2_3_lab
         static void Main(string[] args)
         {
             // 10) declare 2 objects
-            Money moneyFirst  = new Money(10, CurrencyTypes.Eur);
+            Money moneyFirst  = new Money(5, CurrencyTypes.Eur);
             Money moneySecond = new Money(100, CurrencyTypes.Eur);
 
 
@@ -21,13 +21,15 @@ namespace CSharp_Net_module1_2_3_lab
             Console.WriteLine($"Adding two objects money1 and money2...");
             Console.ResetColor();
             Console.WriteLine($"money1 (amount = {moneyFirst.Amount}) + money2 (amount = {moneySecond.Amount}) = money3 (amount = {(moneyFirst + moneySecond).Amount})");
+            moneyFirst += moneySecond;
+            Console.WriteLine(moneyFirst.Amount);
 
             // add 1st object of Money and double
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Adding objects money1 and double...");
             Console.ResetColor();
             double doubleVal = 5;
-            Console.WriteLine($"money1 (amount = {moneyFirst.Amount}) + double (doubleVal = {5}) = money3 (amount = {(moneyFirst + doubleVal).Amount})");
+            Console.WriteLine($"money1 (amount = {moneyFirst.Amount}) + double (doubleVal = {5}) = money3 (amount = {(moneyFirst + (Money)doubleVal).Amount})");
 
             // decrease 2nd object of Money by 1 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -39,7 +41,7 @@ namespace CSharp_Net_module1_2_3_lab
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Increasing amount of money1...");
             Console.ResetColor();
-            Console.WriteLine($"money1 (amount = {moneyFirst.Amount}) * money2 (amount = {moneySecond.Amount}) = money3 (amount = {(moneyFirst * moneySecond).Amount})"); //!!!!!! same object
+            Console.WriteLine($"money1 (amount = {moneyFirst.Amount})  = money3 (amount = {(moneyFirst *= 3).Amount})"); //!!!!!! same object
 
             // compare 2 objects of Money
             Console.ForegroundColor = ConsoleColor.Green;

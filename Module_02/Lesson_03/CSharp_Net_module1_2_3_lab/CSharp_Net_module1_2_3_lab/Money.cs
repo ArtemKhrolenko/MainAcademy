@@ -22,9 +22,9 @@ namespace CSharp_Net_module1_2_3_lab
 
         
         // 3) declare parameter constructor for properties initialization
-        public Money(Decimal amount, CurrencyTypes currencyType)
+        public Money(Decimal amount, CurrencyTypes currencyType) : this(amount)
         {
-            this.Amount = amount;
+            
             this.CurrencyType = currencyType;
         }
 
@@ -47,9 +47,9 @@ namespace CSharp_Net_module1_2_3_lab
 
         //??????????????????
         // 6) declare overloading of operator * to increase object of Money 3 times
-        public static Money operator *(Money moneyFirst, Money moneySecond)
+        public static Money operator *(Money moneyFirst, int a)
         {
-            return new Money(moneyFirst.Amount * moneySecond.Amount, moneyFirst.CurrencyType);
+            return new Money(moneyFirst.Amount  * a, moneyFirst.CurrencyType);
         }
 
         // 7) declare overloading of operator > and < to compare 2 objects of Money
@@ -76,12 +76,12 @@ namespace CSharp_Net_module1_2_3_lab
 
 
         // 9) declare overloading of implicit/ explicit conversion  to convert Money to double, string and vice versa
-        public static implicit operator Money(double doubleValue)
+        public static explicit operator Money(double doubleValue)
         {
             return new Money((decimal)doubleValue);
         }
 
-        public static explicit operator double(Money money)
+        public static implicit operator double(Money money)
         {
             return (double)money.Amount;
         }
