@@ -12,7 +12,7 @@ namespace CSharp_Net_module1_2_3_lab
         {
             // 10) declare 2 objects
             Money moneyFirst  = new Money(5, CurrencyTypes.Eur);
-            Money moneySecond = new Money(100, CurrencyTypes.Eur);
+            Money moneySecond = new Money(100, CurrencyTypes.Uah);
 
 
             // 11) do operations

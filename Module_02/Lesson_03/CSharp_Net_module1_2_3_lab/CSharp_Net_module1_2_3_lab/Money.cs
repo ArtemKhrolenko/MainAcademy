@@ -9,17 +9,23 @@ namespace CSharp_Net_module1_2_3_lab
     // 1) declare enumeration CurrencyTypes, values UAH, USD, EU
     enum CurrencyTypes
     {
-        Uah,
-        Usd,
-        Eur
+        Uah = 1,
+        Usd = 270,
+        Eur = 300
     }
 
+    
     class Money
     {
+        private const double UahUsd = 27.0;
+
+        private const double UahEur = 30.0;
+
+        private const double UsdEur = 1.11;
+        
         // 2) declare 2 properties Amount, CurrencyType
         public Decimal Amount { get; set;}
         public CurrencyTypes CurrencyType { get; set; }
-
         
         // 3) declare parameter constructor for properties initialization
         public Money(Decimal amount, CurrencyTypes currencyType) : this(amount)
@@ -36,7 +42,8 @@ namespace CSharp_Net_module1_2_3_lab
         // 4) declare overloading of operator + to add 2 objects of Money
         public static Money operator +(Money moneyFirst, Money moneySecond)
         {
-            return new Money(moneyFirst.Amount + moneySecond.Amount, moneyFirst.CurrencyType);
+            
+            return new Money(moneyFirst.Amount + moneySecond.Amount, CurrencyTypes.Uah);
         }
 
         // 5) declare overloading of operator -- to decrease object of Money by 1
