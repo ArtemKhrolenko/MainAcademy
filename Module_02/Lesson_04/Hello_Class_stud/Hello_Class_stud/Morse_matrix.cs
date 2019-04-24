@@ -15,11 +15,15 @@ namespace Hello_Class_stud
         public Morse_matrix(int offset_key)
         {
             this.offset_key = offset_key;
+            fd(Alphabet.Dictionary_arr);
+            sd();
         }
 
         public Morse_matrix(string[,] Dict_arr, int offset_key)
         {
             this.offset_key = offset_key;
+            fd(Dict_arr);
+            sd();
         }
 
         public Morse_matrix()
