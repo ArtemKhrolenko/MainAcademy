@@ -18,7 +18,8 @@ namespace Hello_Class_stud
             fd(Alphabet.Dictionary_arr);
             sd();
         }
-
+        //Implement Morse_matrix constructor with the string [,] Dict_arr and int parameter for offset
+        //Use fd(Dict_arr) and sd() methods
         public Morse_matrix(string[,] Dict_arr, int offset_key)
         {
             this.offset_key = offset_key;
@@ -33,8 +34,7 @@ namespace Hello_Class_stud
 
 
 
-        //Implement Morse_matrix constructor with the string [,] Dict_arr and int parameter for offset
-        //Use fd(Dict_arr) and sd() methods
+        
 
 
         //!Feel the matrix
