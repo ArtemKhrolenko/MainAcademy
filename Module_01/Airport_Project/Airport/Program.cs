@@ -185,7 +185,7 @@ namespace Airport
                                 _flights[numOfFlightToEdit - 1].gateID = ChangeItemInDesk("Gate ID", flightItem.gateID, 4);
                                 break;
 
-                            case 7:
+                            case 7: //Flight Status
                                 Console.Clear();
                                 PrintTable(_flights, _direction);
                                 Console.WriteLine("Editing Flight Status.\nChose the status to set...");
