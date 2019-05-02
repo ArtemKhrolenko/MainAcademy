@@ -97,5 +97,11 @@ namespace Airport_Project.Flight_Data
             }
 
         }
+
+        public override string ToString()
+        {
+            return this.FlightID;
+        }
+
     }
 }

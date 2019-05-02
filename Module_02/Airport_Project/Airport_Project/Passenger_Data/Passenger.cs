@@ -187,15 +187,17 @@ namespace Airport_Project.Passenger_Data
             Console.ResetColor();
             object objVal = propertyInfo.GetValue(passanger);
 
-            if (objVal is Flight)
-                objVal = ((Flight)objVal).FlightID;
+            //if (objVal is Flight)
+            //    objVal = ((Flight)objVal).FlightID;
 
             string value = objVal.ToString();
             Console.WriteLine(value.Substring(0, Math.Min(10, value.Length)));
             Console.ResetColor();
         }
+
         #endregion
 
         
+
     }
 }
