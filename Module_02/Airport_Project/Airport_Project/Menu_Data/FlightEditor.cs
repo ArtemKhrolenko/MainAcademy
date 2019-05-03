@@ -25,56 +25,70 @@ namespace Airport_Project.Menu_Data
 
         //Initalize lists
         public FlightEditor(bool isRandomInitalization, FlightPrinter _flightPrinter) : this(_flightPrinter) //True - Random data Initialization 
-        {            
+        {
             if (isRandomInitalization)
             {
                 Random rnd = new Random();
                 for (int i = 0; i < deskTableLength; i++)
                 {
                     ArrivalFlights.Add(new Flight(rnd));
-                    DepartureFlights.Add(new Flight(rnd));                   
-                }                
-                ArrivalFlights.Sort();                
+                    DepartureFlights.Add(new Flight(rnd));
+                }
+                ArrivalFlights.Sort();
             }
-        }        
+        }
 
         internal void EditFlight(List<Flight> flights, string direction)
         {
             Flight flightItem;
             int numOfFlightToEdit;
-            bool paeseIsOk;
+            bool parseIsOk;
 
             //bool goAhead = true;
-            while(true)
+            while (true)
             {
                 Console.Clear();
                 flightPrinter.PrintTable(flights, direction);
                 Console.Write($"Enter number of flight you want to edit...Or press 0 to exit...");
 
-                paeseIsOk = Int32.TryParse(Console.ReadLine(), out numOfFlightToEdit);
+                parseIsOk = Int32.TryParse(Console.ReadLine(), out numOfFlightToEdit);
 
-                if (numOfFlightToEdit == 0 && paeseIsOk)
+                if (numOfFlightToEdit == 0 && parseIsOk)
                     return;
-                if (numOfFlightToEdit < 0 || numOfFlightToEdit >= flights.Count)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Incorrect Input. Retry? y/n");
-                    if (Console.ReadKey(true).Key == ConsoleKey.N)
-                        return;
-                    Console.ResetColor();
-                }
+
+                //Checking by range of number of flights
+                if (CheckForNowChoice(numOfFlightToEdit > 0 && numOfFlightToEdit < flights.Count))
+                    return;
+                Console.WriteLine( "ssdadsa");
 
                 flightItem = flights[numOfFlightToEdit - 1];
+                //if (numOfFlightToEdit < 0 || numOfFlightToEdit >= flights.Count)
+                //{
+                //    Console.ForegroundColor = ConsoleColor.Red;
+                //    Console.WriteLine("Incorrect Input. Retry? y/n");
+                //    if (Console.ReadKey(true).Key == ConsoleKey.N)
+                //        return;
+                //    Console.ResetColor();
+                //}
+
+
+
                 while (true)
                 {
                     Console.Clear();
                     flightPrinter.PrintTable(flights, direction);
                     Console.WriteLine($"...Editing flight {flightItem.FlightID} to(from) {flightItem.CityName}");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"1. Flight;\n2. Time;\n3. City;\n4. Air Company;\n5. Terminal;\n6. Gate;\n7. Status;\n0. Press 0 to Exit current menu.\nPress \"e\" to return to Dask Table");                    
+                    Console.WriteLine($"1. Flight;\n2. Time;\n3. City;\n4. Air Company;\n5. Terminal;\n6. Gate;\n7. Status;\n0. Press 0 to Exit current menu.\nPress \"e\" to return to Dask Table");
                     Console.ResetColor();
                     Console.Write("Select item number to edit...");
-                    paeseIsOk = Int32.TryParse(Console.ReadLine(), out int numOfItemToEdit);
+                    parseIsOk = Int32.TryParse(Console.ReadLine(), out int numOfItemToEdit);
+
+                    //Checked for correct input
+                    if (CheckForNowChoice(parseIsOk))
+                        return;
+
+
 
                 }
                 /*
@@ -190,10 +204,22 @@ namespace Airport_Project.Menu_Data
                 */
 
             }
-           
+
         }
 
-        
+        private bool CheckForNowChoice(bool condition)
+        {
+            if (!condition)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Incorrect Input. Retry? y/n");
+                Console.ResetColor();
+                return (Console.ReadKey(true).Key == ConsoleKey.N);
+            }
+            return !condition;
+        }
+
+
 
     }
 }
