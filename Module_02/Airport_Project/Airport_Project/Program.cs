@@ -18,48 +18,43 @@ namespace Airport_Project
         {
             //Console adjustment
             Console.WindowHeight = 35;
+
+            string arrivalStr = "Arrivals <<===== ";
+            string departStr = "Departures  =====>>";
+
             FlightPrinter flightPrinter = new FlightPrinter();
             FlightEditor flightEditor = new FlightEditor(true, flightPrinter); //Creating Flight Editor class with Random list initialization
-            flightEditor.EditFlight(flightEditor.ArrivalFlights, "Syuda");
-            flightPrinter.PrintTable(flightEditor.ArrivalFlights, "Tuda");
-           
 
-            
-            
+            string userInput;
+            while (true)
+            {
+                Console.Clear();
+                flightPrinter.PrintTable(flightEditor.ArrivalFlights,   arrivalStr);
+                flightPrinter.PrintTable(flightEditor.DepartureFlights, departStr);
+                Console.WriteLine("Edit Arrival: \t\tPress 1\nEdit Departures: \tPress 2\nTo Exit: \t\tPress 0");
+                userInput = Console.ReadLine();
 
+                switch (userInput)
+                {
+                    case "1":
+                        flightEditor.EditFlight(flightEditor.ArrivalFlights, arrivalStr);
+                        break;
+                    case "2":
+                        flightEditor.EditFlight(flightEditor.DepartureFlights, departStr);
+                        break;
+                    case "0":
+                        return;
 
-            //string userInput;
-            //while (true)
-            //{
-            //    Console.Clear();
-            //    Console.WriteLine("1 - Departures editing");
-            //    Console.WriteLine("2 - Arrivals editing");
-            //    Console.WriteLine("0 - To Exit");
-            //    userInput = Console.ReadLine();                
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Incorrect Input. Retry? y/n");
+                        if (Console.ReadKey(true).Key == ConsoleKey.N)
+                            return;
+                        Console.ResetColor();
+                        break;
+                }
 
-            //    switch (userInput)
-            //    {
-            //        case "1":  
-
-
-            //            break;
-            //        case "2":
-
-
-            //            break;
-            //        case "0":
-            //            return;
-
-            //        default:
-            //            Console.ForegroundColor = ConsoleColor.Red;
-            //            Console.WriteLine("Incorrect Input. Retry? y/n");
-            //            if (Console.ReadKey(true).Key == ConsoleKey.N)
-            //                return;
-            //            Console.ResetColor();
-            //            break;
-            //    }                               
-
-            //}
+            }
 
         }
 
