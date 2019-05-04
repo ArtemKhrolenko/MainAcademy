@@ -116,8 +116,7 @@ namespace Airport_Project.Menu_Data
                                     else
                                         continue;
                                 }
-                                flights[numOfFlightToEdit - 1].FlightID = flightIdFromUser.result;
-                                Console.WriteLine("Ok");
+                                flights[numOfFlightToEdit - 1].FlightID = flightIdFromUser.result;                                
                                 break;
                             }
                             break;
@@ -168,9 +167,24 @@ namespace Airport_Project.Menu_Data
 
                         case 4: //Air Company
 
-                            Console.Clear();
-                            flightPrinter.PrintTable(flights, direction);
-                            flights[numOfFlightToEdit - 1].AirCompany = ChangeItemInDesk("Air Company", flightItem.AirCompany, "", 12).result;
+                            while (true)
+                            {
+                                Console.Clear();
+                                flightPrinter.PrintTable(flights, direction);
+                                (bool succeed, string result) flightAirCompFromUser = ChangeItemInDesk("Air Company", flightItem.AirCompany, @"[A-Z][a-z]+$", 8);
+                                if (!flightAirCompFromUser.succeed)
+                                {
+                                    usersChoice = ReceiveUserChoice();
+                                    if (usersChoice == "1")
+                                        break;
+                                    if (usersChoice == "2")
+                                        return;
+                                    else
+                                        continue;
+                                }
+                                flights[numOfFlightToEdit - 1].AirCompany = flightAirCompFromUser.result;
+                                break; 
+                            }
                             break;
 
                         case 5: //Terminal                            
