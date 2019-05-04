@@ -15,11 +15,11 @@ namespace Airport_Project.Passenger_Data
     class Passenger
     {
         #region Static Members
-        private static PropertyInfo[] listOffields; //List of Properies with Description attribute
+        internal static PropertyInfo[] listOffields; //List of Properies with Description attribute
         private static string[] countryArray;       //List Of Countries. Filled from Passenger static constructor
         #endregion
 
-        [Description("Flight Information")]
+        [Description("Flight")]
         public Flight PassFlight { get; private set; }
 
         [Description("First Name")]
@@ -41,7 +41,7 @@ namespace Airport_Project.Passenger_Data
         public PassengerSex Sex { get; private set; }
 
         [Description("Class of Passenger")]
-        public PassengerClass PassClass { get; private set; }        
+        public PassengerClass PassClass { get; private set; }
 
         private Random rnd;
 
@@ -70,9 +70,9 @@ namespace Airport_Project.Passenger_Data
         #region Static initialization
         //In a static constructor fill list of Countries in Airport_Data static class
         static Passenger()
-        {            
+        {
             //Get list of Countries
-            countryArray = GetCountryList();            
+            countryArray = GetCountryList();
             //Get list of Properties
             listOffields = InitProps();
         }
@@ -142,7 +142,9 @@ namespace Airport_Project.Passenger_Data
             Passport = new string(charArray);
 
             //Date of Birth            
-            DateOfBirth = new DateTime(rnd.Next(1900, DateTime.Now.Year - 10), rnd.Next(1, 12), rnd.Next(1, 28));
+            //DateOfBirth = new DateTime(rnd.Next(1900, DateTime.Now.Year - 10), rnd.Next(1, 12), rnd.Next(1, 28));
+            DateTime start = new DateTime(1990, 1, 1);
+            DateOfBirth = start.AddDays(rnd.Next((DateTime.Today - start).Days));
 
             //Sex
             Array passSexItems = Enum.GetValues(typeof(PassengerSex));
@@ -175,6 +177,7 @@ namespace Airport_Project.Passenger_Data
             foreach (var item in listOffields)
             {
                 printPassangerInfoLine(item, this);
+                //Console.Write($"{(Attribute.GetCustomAttribute(item, typeof(DescriptionAttribute)) as DescriptionAttribute).Description}  ");
             }
         }
 
@@ -186,18 +189,14 @@ namespace Airport_Project.Passenger_Data
             Console.Write($"{desc,-20}");
             Console.ResetColor();
             object objVal = propertyInfo.GetValue(passanger);
-
-            //if (objVal is Flight)
-            //    objVal = ((Flight)objVal).FlightID;
-
             string value = objVal.ToString();
             Console.WriteLine(value.Substring(0, Math.Min(10, value.Length)));
-            Console.ResetColor();
+            Console.ResetColor();            
         }
 
         #endregion
 
-        
+
 
     }
 }

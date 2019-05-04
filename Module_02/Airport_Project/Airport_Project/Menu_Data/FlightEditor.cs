@@ -45,7 +45,7 @@ namespace Airport_Project.Menu_Data
             Flight flightItem;
             int numOfFlightToEdit;
             bool parseIsOk;
-            string usersChoice;
+            string usersChoice = string.Empty;
 
             //bool goAhead = true;
             while (true)
@@ -62,12 +62,9 @@ namespace Airport_Project.Menu_Data
                 if (!parseIsOk || numOfFlightToEdit < 0 || numOfFlightToEdit >= flights.Count)
                 {
                     usersChoice = ReceiveUserChoice();
-                    if (usersChoice == "1")
-                        break;
-                    if (usersChoice == "2")
-                        return;
-                    else
-                        continue;
+                    if (usersChoice == "1") break;
+                    if (usersChoice == "2") return;
+                    else continue;
                 }
 
                 flightItem = flights[numOfFlightToEdit - 1];
@@ -78,24 +75,13 @@ namespace Airport_Project.Menu_Data
                     flightPrinter.PrintTable(flights, direction);
                     Console.WriteLine($"...Editing flight {flightItem.FlightID} to(from) {flightItem.CityName}");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.WriteLine($"1. Flight;\n2. Time;\n3. City;\n4. Air Company;\n5. Terminal;\n6. Gate;\n7. Status;\n0. To return to previous menuu.");
+                    Console.WriteLine($"1. Flight;\n2. Time;\n3. City;\n4. Air Company;\n5. Terminal;\n6. Gate;\n7. Status;\n8. Passenger list\n0. To return to previous menuu.");
                     Console.ResetColor();
                     Console.Write("Select item number to edit...");
                     parseIsOk = Int32.TryParse(Console.ReadLine(), out int numOfItemToEdit);
 
                     if (parseIsOk && numOfItemToEdit == 0)
                         break;
-                    //If edit info is incorrect
-                    if (!parseIsOk || numOfItemToEdit < 0 || numOfItemToEdit >= 8)
-                    {
-                        usersChoice = ReceiveUserChoice();
-                        if (usersChoice == "1")
-                            break;
-                        if (usersChoice == "2")
-                            return;
-                        else
-                            continue;
-                    }
 
                     //Handling correct input
                     switch (numOfItemToEdit)
@@ -109,14 +95,11 @@ namespace Airport_Project.Menu_Data
                                 if (!flightIdFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
-                                    if (usersChoice == "1")
-                                        break;
-                                    if (usersChoice == "2")
-                                        return;
-                                    else
-                                        continue;
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
                                 }
-                                flights[numOfFlightToEdit - 1].FlightID = flightIdFromUser.result;                                
+                                flights[numOfFlightToEdit - 1].FlightID = flightIdFromUser.result;
                                 break;
                             }
                             break;
@@ -130,12 +113,9 @@ namespace Airport_Project.Menu_Data
                                 if (!timeFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
-                                    if (usersChoice == "1")
-                                        break;
-                                    if (usersChoice == "2")
-                                        return;
-                                    else
-                                        continue;
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
                                 }
                                 flights[numOfFlightToEdit - 1].Time = timeFromUser.result;
                                 flights.Sort();
@@ -153,12 +133,9 @@ namespace Airport_Project.Menu_Data
                                 if (!flightCityFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
-                                    if (usersChoice == "1")
-                                        break;
-                                    if (usersChoice == "2")
-                                        return;
-                                    else
-                                        continue;
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
                                 }
                                 flights[numOfFlightToEdit - 1].CityName = flightCityFromUser.result;
                                 break;
@@ -175,30 +152,51 @@ namespace Airport_Project.Menu_Data
                                 if (!flightAirCompFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
-                                    if (usersChoice == "1")
-                                        break;
-                                    if (usersChoice == "2")
-                                        return;
-                                    else
-                                        continue;
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
                                 }
                                 flights[numOfFlightToEdit - 1].AirCompany = flightAirCompFromUser.result;
-                                break; 
+                                break;
                             }
                             break;
 
                         case 5: //Terminal                            
 
-                            Console.Clear();
-                            flightPrinter.PrintTable(flights, direction);
-                            flights[numOfFlightToEdit - 1].Terminal = ChangeItemInDesk("Terminal", flightItem.Terminal);
+                            while (true)
+                            {
+                                Console.Clear();
+                                flightPrinter.PrintTable(flights, direction);
+                                (bool succeed, char result) flightTerminalFromUser = ChangeItemInDesk("Terminal", flightItem.Terminal);
+                                if (!flightTerminalFromUser.succeed)
+                                {
+                                    usersChoice = ReceiveUserChoice();
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
+                                }
+                                flights[numOfFlightToEdit - 1].Terminal = flightTerminalFromUser.result;
+                                break;
+                            }
                             break;
 
                         case 6: //Gate
 
-                            Console.Clear();
-                            flightPrinter.PrintTable(flights, direction);
-                            flights[numOfFlightToEdit - 1].GateID = ChangeItemInDesk("Gate ID", flightItem.GateID, "", 4).result;
+                            while (true)
+                            {
+                                Console.Clear();
+                                flightPrinter.PrintTable(flights, direction);
+                                (bool succeed, string result) flightGateFromUser = ChangeItemInDesk("Gate ID", flightItem.GateID, @"^[A-Z]\d+", 4);
+                                if (!flightGateFromUser.succeed)
+                                {
+                                    usersChoice = ReceiveUserChoice();
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
+                                }
+                                flights[numOfFlightToEdit - 1].GateID = flightGateFromUser.result;
+                                break;
+                            }
                             break;
 
                         case 7: //Flight Status
@@ -233,12 +231,9 @@ namespace Airport_Project.Menu_Data
                                         if (!timeFromUser.succeed)
                                         {
                                             usersChoice = ReceiveUserChoice();
-                                            if (usersChoice == "1")
-                                                break;
-                                            if (usersChoice == "2")
-                                                return;
-                                            else
-                                                continue;
+                                            if (usersChoice == "1") break;
+                                            if (usersChoice == "2") return;
+                                            else continue;
                                         }
                                         flights[numOfFlightToEdit - 1].StatusTime = timeFromUser.result;
                                     }
@@ -250,52 +245,34 @@ namespace Airport_Project.Menu_Data
                                 }
                                 else
                                 {
-
                                     usersChoice = ReceiveUserChoice();
-                                    if (usersChoice == "1")
-                                        break;
-                                    if (usersChoice == "2")
-                                        return;
-                                    else
-                                        continue;
-
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
                                 }
                             }
-
                             break;
+                        case 8: //Passenger list
+                            Console.Clear();
+                            flightPrinter.PrintPassengerList(flightItem);
 
+                            Console.ReadKey();
+                            break;
                         default:
-                            //PrintIncorrectInputString(ref goAhead);
+                            //If edit info is incorrect
+                            usersChoice = ReceiveUserChoice();
+                            if (usersChoice != "1") continue;
+                            if (usersChoice == "2") return;
                             break;
+
                     }
-
-
-
+                    if (usersChoice == "1") break;
                 }
-                /*
-               
-                    while (goAhead)
-                    {
-                        //Console.Clear();
-                        //Console.ResetColor();
-                        //flightItem = _flights[numOfFlightToEdit - 1];
-                        //PrintTable(_flights, _direction);
-                        //Console.WriteLine($"...Editing flight {flightItem.flightID} to(from) {flightItem.cityName}");
-
-                        //Console.ForegroundColor = ConsoleColor.DarkGray;
-                        //Console.WriteLine($"1. Flight;\n2. Time;\n3. City;\n4. Air Company;\n5. Terminal;\n6. Gate;\n7. Status;\n0. Press 0 to Exit editing");
-                        //Console.ResetColor();
-
-                        Console.WriteLine("Select item number to edit...");
-                        Int32.TryParse(Console.ReadLine(), out int numOfItemToEdit);
-                        
-
-                    }
-
-                
-                */
-
             }
+        }
+
+        private void Met()
+        {
 
         }
 
@@ -335,30 +312,30 @@ namespace Airport_Project.Menu_Data
         }
 
         //Method for changing character Items in Flight Structure
-        private char ChangeItemInDesk(string itemName, char oldItemValue)
+        private (bool succeed, char result) ChangeItemInDesk(string itemName, char oldItemValue)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"Editing {itemName}");
             Console.ForegroundColor = ConsoleColor.Gray;
+            (bool succeed, char result) charItem;
 
             Console.Write($"Change {itemName} from {oldItemValue} to...:  ");
 
-            if (Char.TryParse(Console.ReadLine(), out char charItem) && charItem > 64 && charItem < 91)
+            //If Terminal ID is char [A-Z]
+            if (Char.TryParse(Console.ReadLine(), out charItem.result) && charItem.result > 64 && charItem.result < 91)
             {
+                charItem.succeed = true;
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"{itemName} was changed to {charItem}. Press any key to Continue...");
-                Console.ForegroundColor = ConsoleColor.Gray;
-
+                Console.WriteLine($"{itemName} was changed to {charItem.result}. Press any key to Continue...");
+                Console.ReadKey();
             }
             else
             {
-                //PrintIncorrectInputString();
-                return oldItemValue;
-
+                charItem.succeed = false;
+                charItem.result = oldItemValue;
             }
 
             Console.ResetColor();
-            Console.ReadKey();
             return charItem;
         }
 
