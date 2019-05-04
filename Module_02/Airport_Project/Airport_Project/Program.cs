@@ -17,8 +17,7 @@ namespace Airport_Project
         static void Main(string[] args)
         {
             //Console adjustment
-            Console.WindowHeight = 35;
-
+            Console.WindowHeight = 35;           
             string arrivalStr = "Arrivals <<===== ";
             string departStr = "Departures  =====>>";
 
