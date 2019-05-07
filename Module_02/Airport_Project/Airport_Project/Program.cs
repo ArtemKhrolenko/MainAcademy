@@ -17,7 +17,7 @@ namespace Airport_Project
         static void Main(string[] args)
         {
             //Console adjustment
-            Console.WindowHeight = 35;           
+            Console.WindowHeight = 35;            
             string arrivalStr = "Arrivals <<===== ";
             string departStr = "Departures  =====>>";
 
@@ -28,8 +28,10 @@ namespace Airport_Project
             while (true)
             {
                 Console.Clear();
-                flightPrinter.PrintTable(flightEditor.ArrivalFlights,   arrivalStr);
-                flightPrinter.PrintTable(flightEditor.DepartureFlights, departStr);
+                //flightPrinter.PrintTable(flightEditor.ArrivalFlights,   arrivalStr);
+                flightPrinter.PrintPassengerList(flightEditor.ArrivalFlights, 0, arrivalStr);
+                //flightPrinter.PrintTable(flightEditor.DepartureFlights, departStr);
+                flightPrinter.PrintPassengerList(flightEditor.DepartureFlights, 0, departStr);
                 Console.WriteLine("Edit Arrival: \t\tPress 1\nEdit Departures: \tPress 2\nTo Exit: \t\tPress 0");
                 userInput = Console.ReadLine();
 

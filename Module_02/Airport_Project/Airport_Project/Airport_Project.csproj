@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Airport_Data\AirportData.cs" />
     <Compile Include="Flight_Data\ExtentionMethods.cs" />
     <Compile Include="Flight_Data\Flight.cs" />
     <Compile Include="Flight_Data\FlightStatus.cs" />
+    <Compile Include="IPrintable.cs" />
+    <Compile Include="Menu_Data\Editor.cs" />
     <Compile Include="Menu_Data\FlightEditor.cs" />
     <Compile Include="Menu_Data\FlightPrinter.cs" />
+    <Compile Include="Menu_Data\PassengerEditor.cs" />
     <Compile Include="Passenger_Data\Passenger.cs" />
     <Compile Include="Passenger_Data\PassengerClass.cs" />
     <Compile Include="Passenger_Data\PassengerSex.cs" />

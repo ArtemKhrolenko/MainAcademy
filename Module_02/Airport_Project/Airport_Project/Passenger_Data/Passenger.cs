@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using Airport_Project.Flight_Data;
-using Airport_Project.Airport_Data;
 using System.Globalization;
 using System.ComponentModel;
 
 
 namespace Airport_Project.Passenger_Data
 {
-    class Passenger
+    class Passenger: IPrintable
     {
         #region Static Members
         internal static PropertyInfo[] listOffields; //List of Properies with Description attribute
@@ -34,13 +33,22 @@ namespace Airport_Project.Passenger_Data
         [Description("Passport Info")]
         public string Passport { get; private set; }
 
+        
+        internal DateTime DateOfBirth { get; private set; }
+
         [Description("Date of Birth")]
-        public DateTime DateOfBirth { get; private set; }
+        public string StrDateOfBirth
+        {
+            get
+            {
+                return DateOfBirth.ToString("dd-mm-yyyy");
+            }
+        }
 
         [Description("Sex")]
         public PassengerSex Sex { get; private set; }
 
-        [Description("Class of Passenger")]
+        [Description("Class")]
         public PassengerClass PassClass { get; private set; }
 
         private Random rnd;

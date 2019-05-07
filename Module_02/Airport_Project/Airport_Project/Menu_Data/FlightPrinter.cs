@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
 using Airport_Project.Flight_Data;
 using Airport_Project.Passenger_Data;
@@ -12,10 +13,10 @@ namespace Airport_Project.Menu_Data
     class FlightPrinter
     {
         //Method for printing Desk Table
-        internal void PrintTable(List<Flight> flightDesk, string _direction)
+        internal void PrintTable(List<Flight> flightDesk, string description)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(_direction);
+            Console.WriteLine(description);
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.WriteLine(new string('-', 90));
             Console.WriteLine(string.Format("{7, 2} | {0,-8} | {1, -5} | {2,-10} | {3,-12} | {4, -9} | {5,-4} | {6, -17} |", " Flight", " Time", "   City", " Air company", "Terminal", "Gate", "   Status", "#"));
@@ -38,49 +39,52 @@ namespace Airport_Project.Menu_Data
             //Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        internal void PrintPassengerList(Flight flight)
+        internal void PrintPassengerList<T>(List<T> listForPrint, int lightItem, string description) where T : IPrintable
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"List og passengers of FLight # {flight}");
+            Console.WriteLine(description);
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine(new string('-', 94));
-            Console.WriteLine($"|{" # ", -3}|{" First Name ", -3}|{" Last Name ", -3}|{" Nationality ", -3}|{" Passport Info ", -3}|{" Date of Birth ", -3}|{" Sex ", -6}|{" Class ", -10}|");
-            Console.WriteLine(new string('-', 94));
-            Console.ForegroundColor = ConsoleColor.DarkGray;
+            
+            //Select all properties with description attribute            
+            var properyList = typeof(T).GetProperties().Where(p => Attribute.IsDefined(p, typeof(DescriptionAttribute))).ToList();
 
-            Passenger passanger;
-            for (int i = 0; i < flight.PassengerList.Count; i++)
+            //Printing Header of table
+            StringBuilder strb = new StringBuilder("| No |");
+            for (int i = 0; i < properyList.Count(); i++)
             {
-                passanger = flight.PassengerList[i];
-                Console.WriteLine($"| {i+1,-2}|{passanger.FirstName, -12}|{passanger.SecondName, -11}|{passanger.Nationality.Substring(0, Math.Min(13, passanger.Nationality.Length)), -13}|   {passanger.Passport, -12}|  {passanger.DateOfBirth.ToString("dd.MM.yyyy"), -13}|{passanger.Sex, -6}|{passanger.PassClass,-10}|");
+                strb.Append($"  {(Attribute.GetCustomAttribute(properyList[i], typeof(DescriptionAttribute)) as DescriptionAttribute).Description,-3} {" |"}");
             }
+            //Console.WindowWidth = strb.Length + 2;
+            Console.WriteLine(new string('-', strb.Length));
+            Console.WriteLine(strb.ToString());
+            Console.WriteLine(new string('-', strb.Length));
+
+            //Printing Data
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            string value;
+            int attributeLength;
+            object o;
+            for (int i = 0; i < listForPrint.Count; i++)
+            {
+                if (i == lightItem - 1)
+                    Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"| {i + 1,-2} |");
+                foreach (var prop in properyList)
+                {
+                    attributeLength = (Attribute.GetCustomAttribute(prop, typeof(DescriptionAttribute)) as DescriptionAttribute).Description.Length + 4;
+                    value = prop.GetValue(listForPrint[i]).ToString();
+                    value = value.PadLeft(value.Length + (attributeLength - value.Length) / 2);
+                    value = value.Substring(0, Math.Min(attributeLength, value.Length));
+
+                    Console.Write($"{value.PadRight((Attribute.GetCustomAttribute(prop, typeof(DescriptionAttribute)) as DescriptionAttribute).Description.Length + 4)}|");
+                }
+                Console.WriteLine();
+                if (Console.ForegroundColor != ConsoleColor.DarkGreen)
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+            }
+            //Printing Bottom border of table
             Console.ResetColor();
-            Console.WriteLine(new string('-', 94));
-
-
-
-
-            //StringBuilder strb = new StringBuilder("| No |");
-            //for (int i = 0; i < Passenger.listOffields.Length; i++)
-            //{
-            //    System.Reflection.PropertyInfo item = Passenger.listOffields[i];
-            //    strb.Append($" {(Attribute.GetCustomAttribute(item, typeof(DescriptionAttribute)) as DescriptionAttribute).Description,-3} {"|"}");
-            //}
-            //Console.WriteLine(new string('-', strb.Length));
-            //Console.WriteLine(strb.ToString());
-            //Console.WriteLine(new string('-', strb.Length));
-
-            //for (int i = 0; i < passengerList.Count; i++)
-            //{
-            //    Console.Write($"| {i+1} |");         
-            //    foreach (var prop in Passenger.listOffields)
-            //    {                    
-            //        string value = prop.GetValue(passengerList[i]).ToString();
-            //        Console.Write($"{value.Substring(0, Math.Min(10, value.Length))} |");
-            //    }
-            //    Console.WriteLine();
-            //}
-
+            Console.WriteLine(new string('-', strb.Length));
         }
     }
 }
