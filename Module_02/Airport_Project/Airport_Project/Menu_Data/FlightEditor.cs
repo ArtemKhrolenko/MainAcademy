@@ -52,7 +52,7 @@ namespace Airport_Project.Menu_Data
             {
                 Console.Clear();
                 //flightPrinter.PrintTable(flights, direction);
-                flightPrinter.PrintPassengerList(flights, 0, direction);
+                flightPrinter.PrintItemsList(flights, 0, direction);
                 Console.Write($"Enter number of flight you want to edit...Or press 0 to return to previous menu...");
 
                 parseIsOk = Int32.TryParse(Console.ReadLine(), out numOfFlightToEdit);
@@ -74,7 +74,7 @@ namespace Airport_Project.Menu_Data
                 {
                     Console.Clear();
                     //flightPrinter.PrintTable(flights, direction);
-                    flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                    flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                     Console.WriteLine($"...Editing flight {flightItem.FlightID} to(from) {flightItem.CityName}");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.WriteLine($"1. Flight;\n2. Time;\n3. City;\n4. Air Company;\n5. Terminal;\n6. Gate;\n7. Status;\n8. Passenger list\n0. To return to previous menuu.");
@@ -93,7 +93,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
-                                flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                                flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, string result) flightIdFromUser = ChangeItemInDesk("flight ID", flightItem.FlightID, @"[A-Z]{2}\s\d{4}$", 8);
                                 if (!flightIdFromUser.succeed)
                                 {
@@ -112,7 +112,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
-                                flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                                flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", flightItem.Time);
                                 if (!timeFromUser.succeed)
                                 {
@@ -134,7 +134,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
-                                flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                                flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, string result) flightCityFromUser = ChangeItemInDesk("City", flightItem.CityName, @"^[A-Z][a-z]+(?:[\s-][A-Z][a-z]+)*$", 10);
                                 if (!flightCityFromUser.succeed)
                                 {
@@ -156,7 +156,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
-                                flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                                flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, string result) flightAirCompFromUser = ChangeItemInDesk("Air Company", flightItem.AirCompany, @"[A-Z][a-z]+$", 8);
                                 if (!flightAirCompFromUser.succeed)
                                 {
@@ -176,7 +176,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
-                                flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                                flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, char result) flightTerminalFromUser = ChangeItemInDesk("Terminal", flightItem.Terminal);
                                 if (!flightTerminalFromUser.succeed)
                                 {
@@ -196,7 +196,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
-                                flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                                flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, string result) flightGateFromUser = ChangeItemInDesk("Gate ID", flightItem.GateID, @"^[A-Z]\d+", 4);
                                 if (!flightGateFromUser.succeed)
                                 {
@@ -215,7 +215,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
-                                flightPrinter.PrintPassengerList(flights, numOfFlightToEdit, direction);
+                                flightPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 Console.WriteLine("Editing Flight Status...");
 
                                 //Printing All of statuses
@@ -266,8 +266,7 @@ namespace Airport_Project.Menu_Data
                             break;
                         case 8: //Passenger list
                             Console.Clear();
-                            flightPrinter.PrintPassengerList(flightItem.PassengerList, 0, $"List of Passenger of flight {flightItem}");
-
+                            flightPrinter.PrintItemsList(flightItem.PassengerList, 0, $"List of Passenger of flight {flightItem}");
                             Console.ReadKey();
                             break;
                         default:

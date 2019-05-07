@@ -37,7 +37,7 @@ namespace Airport_Project.Flight_Data
         public string GateID { get; set; }      //Airport Gate ID
         
         internal FlightStatus FlightStatus { get; set; }      //Status of Flight     
-        [Description("Status          ")]
+        [Description("    Status     ")]
         public string StrFligjtStatusTime {
             get
             {

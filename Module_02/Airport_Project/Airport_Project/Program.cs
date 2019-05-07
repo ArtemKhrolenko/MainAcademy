@@ -23,15 +23,16 @@ namespace Airport_Project
 
             FlightPrinter flightPrinter = new FlightPrinter();
             FlightEditor flightEditor = new FlightEditor(true, flightPrinter); //Creating Flight Editor class with Random list initialization
+            PassengerEditor passengerEditor = new PassengerEditor();           //Creating Passenger Editor class
 
             string userInput;
             while (true)
             {
                 Console.Clear();
                 //flightPrinter.PrintTable(flightEditor.ArrivalFlights,   arrivalStr);
-                flightPrinter.PrintPassengerList(flightEditor.ArrivalFlights, 0, arrivalStr);
+                flightPrinter.PrintItemsList(flightEditor.ArrivalFlights, 0, arrivalStr);
                 //flightPrinter.PrintTable(flightEditor.DepartureFlights, departStr);
-                flightPrinter.PrintPassengerList(flightEditor.DepartureFlights, 0, departStr);
+                flightPrinter.PrintItemsList(flightEditor.DepartureFlights, 0, departStr);
                 Console.WriteLine("Edit Arrival: \t\tPress 1\nEdit Departures: \tPress 2\nTo Exit: \t\tPress 0");
                 userInput = Console.ReadLine();
 

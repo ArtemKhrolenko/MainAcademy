@@ -39,7 +39,7 @@ namespace Airport_Project.Menu_Data
             //Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        internal void PrintPassengerList<T>(List<T> listForPrint, int lightItem, string description) where T : IPrintable
+        internal void PrintItemsList<T>(List<T> listForPrint, int lightItem, string description) where T : IPrintable
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(description);
