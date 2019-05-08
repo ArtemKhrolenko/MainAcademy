@@ -52,7 +52,7 @@
     <Compile Include="IPrintable.cs" />
     <Compile Include="Menu_Data\Editor.cs" />
     <Compile Include="Menu_Data\FlightEditor.cs" />
-    <Compile Include="Menu_Data\FlightPrinter.cs" />
+    <Compile Include="Menu_Data\ItemsPrinter.cs" />
     <Compile Include="Menu_Data\PassengerEditor.cs" />
     <Compile Include="Passenger_Data\Passenger.cs" />
     <Compile Include="Passenger_Data\PassengerClass.cs" />

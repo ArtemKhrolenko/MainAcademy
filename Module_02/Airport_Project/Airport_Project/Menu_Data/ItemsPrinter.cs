@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Airport_Project.Menu_Data
 {
-    class FlightPrinter
+    class ItemsPrinter
     {
         //Method for printing Desk Table
         internal void PrintTable(List<Flight> flightDesk, string description)

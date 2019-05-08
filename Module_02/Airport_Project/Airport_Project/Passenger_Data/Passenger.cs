@@ -19,22 +19,22 @@ namespace Airport_Project.Passenger_Data
         #endregion
 
         [Description("Flight")]
-        public Flight PassFlight { get; private set; }
+        public Flight PassFlight { get; set; }
 
         [Description("First Name")]
-        public string FirstName { get; private set; }
+        public string FirstName { get; set; }
 
         [Description("Second Name")]
-        public string SecondName { get; private set; }
+        public string SecondName { get; set; }
 
         [Description("Nationality")]
-        public string Nationality { get; private set; }
+        public string Nationality { get; set; }
 
         [Description("Passport Info")]
-        public string Passport { get; private set; }
+        public string Passport { get; set; }
 
         
-        internal DateTime DateOfBirth { get; private set; }
+        internal DateTime DateOfBirth { get; set; }
 
         [Description("Date of Birth")]
         public string StrDateOfBirth
@@ -46,7 +46,7 @@ namespace Airport_Project.Passenger_Data
         }
 
         [Description("Sex")]
-        public PassengerSex Sex { get; private set; }
+        public PassengerSex Sex { get; set; }
 
         [Description("Class")]
         public PassengerClass PassClass { get; private set; }
