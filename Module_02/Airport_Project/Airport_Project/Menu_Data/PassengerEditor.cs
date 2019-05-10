@@ -163,7 +163,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();                                
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                                Console.WriteLine(passengers[numOfPassToEdit - 1].Sex.GetType());
+                                ChangeItemInDesk("Sex", passItem.Sex);
                                 Console.Read();
 
                                 
