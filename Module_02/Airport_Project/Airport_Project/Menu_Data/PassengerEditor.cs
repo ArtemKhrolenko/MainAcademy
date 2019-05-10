@@ -146,7 +146,7 @@ namespace Airport_Project.Menu_Data
 
                             Console.Clear();                            
                             itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                            (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", passItem.DateOfBirth);
+                            (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", passItem.DateOfBirth, "dd.MM.yyyy");
                             if (!timeFromUser.succeed)
                             {
                                 usersChoice = ReceiveUserChoice();
@@ -163,38 +163,17 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();                                
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                                Console.WriteLine("Editing Sex...");
+                                Console.WriteLine(passengers[numOfPassToEdit - 1].Sex.GetType());
+                                Console.Read();
 
-                                //Printing All of statuses
-                                Console.ForegroundColor = ConsoleColor.DarkGray;
-                                foreach (var item in Enum.GetValues(typeof(PassengerSex)))
-                                {
-                                    Console.WriteLine((int)item + 1 + ". " + ((PassengerSex)item).ToString());
-                                }
-                                Console.WriteLine("0. To return to previous menu");
-                                Console.ResetColor();
-                                Console.WriteLine("Chose the Sex to set...");
-
-                                bool isEnumValue = Int32.TryParse(Console.ReadLine(), out int _sexIndex);
-
-                                if (isEnumValue && _sexIndex == 0)
-                                    break;
-
-                                //Checking for correct input for the status of Flight
-                                if (isEnumValue && _sexIndex > 0 && _sexIndex <= Enum.GetValues(typeof(PassengerSex)).Length)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine($"Sex changed from \"{passItem.Sex.ToString()}\" to \"{((PassengerSex)_sexIndex - 1).ToString()}\". Press any key to Continue...");
-                                    passengers[numOfPassToEdit - 1].Sex = (PassengerSex)_sexIndex - 1;
-                                    Console.ReadKey();
-                                }
-                                else
-                                {
-                                    usersChoice = ReceiveUserChoice();
-                                    if (usersChoice == "1") break;
-                                    if (usersChoice == "2") return;
-                                    else continue;
-                                }
+                                
+                                //else
+                                //{
+                                //    usersChoice = ReceiveUserChoice();
+                                //    if (usersChoice == "1") break;
+                                //    if (usersChoice == "2") return;
+                                //    else continue;
+                                //}
                             }
                             break;
 

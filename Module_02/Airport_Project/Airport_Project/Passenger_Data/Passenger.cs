@@ -41,7 +41,7 @@ namespace Airport_Project.Passenger_Data
         {
             get
             {
-                return DateOfBirth.ToString("dd-mm-yyyy");
+                return DateOfBirth.ToString("dd.MM.yyyy");
             }
         }
 

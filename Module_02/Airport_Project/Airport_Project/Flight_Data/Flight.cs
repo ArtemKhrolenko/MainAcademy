@@ -41,7 +41,7 @@ namespace Airport_Project.Flight_Data
         public string StrFligjtStatusTime {
             get
             {
-                string tmpTimeStr = FlightStatus == FlightStatus.DEPARTED_AT || FlightStatus == FlightStatus.EXPECTED_AT ? StatusTime.ToString("hh:mm") : "";
+                string tmpTimeStr = FlightStatus == FlightStatus.DEPARTED_AT || FlightStatus == FlightStatus.EXPECTED_AT ? StatusTime.ToString("HH:mm") : "";
                 return $"{FlightStatus.GetDescription()} {tmpTimeStr}";
             }
         }

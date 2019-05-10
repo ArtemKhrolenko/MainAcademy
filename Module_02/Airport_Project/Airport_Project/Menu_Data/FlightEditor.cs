@@ -116,7 +116,7 @@ namespace Airport_Project.Menu_Data
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
-                                (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", flightItem.Time);
+                                (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", flightItem.Time, "HH:mm");
                                 if (!timeFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -242,7 +242,7 @@ namespace Airport_Project.Menu_Data
                                     //if Status == Departed At OR Departed AT - ask user about exat time of departing or excepting
                                     if ((FlightStatus)_flightStatusIndex - 1 == FlightStatus.DEPARTED_AT || (FlightStatus)_flightStatusIndex - 1 == FlightStatus.EXPECTED_AT)
                                     {
-                                        (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time of Departure or Arrival", flightItem.StatusTime);
+                                        (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time of Departure or Arrival", flightItem.StatusTime, "HH:mm");
                                         if (!timeFromUser.succeed)
                                         {
                                             usersChoice = ReceiveUserChoice();
