@@ -268,16 +268,10 @@ namespace Airport_Project.Menu_Data
                             }
                             break;
 
-                        default:
-                            //If edit info is incorrect
-                            //numOfItemToEdit = -1;
-                            //usersChoice = ReceiveUserChoice();
-                            //if (usersChoice != "1") continue;
-                            //if (usersChoice == "2") return;
+                        default:                           
                             break;
-
                     }
-                    //if (numOfItemToEdit == -1 && usersChoice == "1") break;
+                    
                 }
 
             }
