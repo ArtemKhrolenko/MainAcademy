@@ -16,18 +16,87 @@ namespace Airport_Project.Menu_Data
             itemsPrinter = _itemsPrinter;
         }
 
-        internal void EditPassenger(List<Passenger> passengers, string description)
+
+        internal void HandlePassengerList(List<Passenger> passengers, string description)
         {
-            Passenger passItem;
-            int numOfPassToEdit;
             bool parseIsOk;
+            int numOfItemToEdit;
             string usersChoice = string.Empty;
 
             while (true)
             {
                 Console.Clear();
                 itemsPrinter.PrintItemsList(passengers, 0, description);
-                Console.Write($"Enter number of passenger you want to edit...Or press 0 to return to previous menu...");
+                Console.Write($"1 - Edit Passenger\n2 - Add Passenger\n3 - Delete Passenger\n0 - Exit to previous Menu\nYour choice: ");
+
+                parseIsOk = Int32.TryParse(Console.ReadLine(), out numOfItemToEdit);
+
+                if (numOfItemToEdit == 0 && parseIsOk)
+                    return;
+                if (!parseIsOk || numOfItemToEdit < 0 || numOfItemToEdit > 3)
+                {
+                    usersChoice = ReceiveUserChoice();
+                    if (usersChoice == "1") break;
+                    if (usersChoice == "2") return;
+                    else continue;
+                }
+                //Edit Passenger
+                switch (numOfItemToEdit)
+                {
+                    case 1:
+                        EditPassengerList(passengers, description);
+                        break;
+
+                    case 2:
+                        try
+                        {
+                            passengers.Add(new Passenger(new Random(), passengers[0].PassFlight));
+                        }
+                        catch
+                        {
+                            throw new NotFiniteNumberException();
+                        }
+                        break;
+                    case 3:
+                        try
+                        {
+                            Console.Write("Enter number...   ");
+                            passengers.Remove(passengers[int.Parse(Console.ReadLine()) - 1]);
+
+                        }
+                        catch (Exception e)
+                        {
+                            usersChoice = ReceiveUserChoice();
+                            if (usersChoice == "1") break;
+                            if (usersChoice == "2") return;
+                            else continue;
+                        }
+                        break;
+
+                    default:
+                        usersChoice = ReceiveUserChoice();
+                        if (usersChoice == "1") break;
+                        if (usersChoice == "2") return;
+                        else continue;
+                       
+                }
+                
+            }
+        }
+
+        //Editing PassengerList
+        internal void EditPassengerList(List<Passenger> passengers, string description)
+        {
+            Passenger passItem;
+            int numOfPassToEdit;
+            bool parseIsOk;
+            string usersChoice = string.Empty;                      
+
+            while (true)
+            {
+                Console.Clear();
+                itemsPrinter.PrintItemsList(passengers, 0, description);                
+                Console.Write($"Enter number of passenger you want to edit...Or press 0 to return to previous menu...");               
 
                 parseIsOk = Int32.TryParse(Console.ReadLine(), out numOfPassToEdit);
 
@@ -73,7 +142,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                                (bool succeed, string result) firstNameFromUser = ChangeItemInDesk("First Name", passItem.FirstName, @"[A-Z][a-z]+$", 8);
+                                (bool succeed, string result) firstNameFromUser = ChangeItemInDesk("First Name", passItem.FirstName, @"[A-Z][a-z]+$");
                                 if (!firstNameFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -91,7 +160,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                                (bool succeed, string result) secondNameFromUser = ChangeItemInDesk("Second Name", passItem.FirstName, @"[A-Z][a-z]+$", 8);
+                                (bool succeed, string result) secondNameFromUser = ChangeItemInDesk("Second Name", passItem.FirstName, @"[A-Z][a-z]+$");
                                 if (!secondNameFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -110,7 +179,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                                (bool succeed, string result) natioFromUser = ChangeItemInDesk("City", passItem.Nationality, @"^[A-Z][a-z]+$", 10);
+                                (bool succeed, string result) natioFromUser = ChangeItemInDesk("City", passItem.Nationality, @"^[A-Z][a-z]+$");
                                 if (!natioFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -130,7 +199,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                                (bool succeed, string result) passportFromUser = ChangeItemInDesk("Air Company", passItem.Passport, @"[A-Z]{2}[0-9]{4}$", 8);
+                                (bool succeed, string result) passportFromUser = ChangeItemInDesk("Air Company", passItem.Passport, @"[A-Z]{2}[0-9]{6}$");
                                 if (!passportFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -213,6 +282,8 @@ namespace Airport_Project.Menu_Data
 
             }
         }
+
+        
 
     }
 }

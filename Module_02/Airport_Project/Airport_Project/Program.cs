@@ -37,10 +37,10 @@ namespace Airport_Project
                 switch (userInput)
                 {
                     case "1":
-                        flightEditor.EditFlight(flightEditor.ArrivalFlights, arrivalStr);
+                        flightEditor.HandleFlightList(flightEditor.ArrivalFlights, arrivalStr);
                         break;
                     case "2":
-                        flightEditor.EditFlight(flightEditor.DepartureFlights, departStr);
+                        flightEditor.HandleFlightList(flightEditor.DepartureFlights, departStr);
                         break;
                     case "0":
                         return;

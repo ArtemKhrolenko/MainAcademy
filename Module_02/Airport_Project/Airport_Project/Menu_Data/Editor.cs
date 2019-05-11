@@ -20,7 +20,7 @@ namespace Airport_Project.Menu_Data
         }
 
         //Method for changing string Items in Flight Structure
-        protected (bool succeed, string result) ChangeItemInDesk(string itemName, string oldItemValue, string pattern, int length)
+        protected (bool succeed, string result) ChangeItemInDesk(string itemName, string oldItemValue, string pattern)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"Editing {itemName}");
@@ -31,11 +31,7 @@ namespace Airport_Project.Menu_Data
             string strNewValue = Console.ReadLine();
             if (!Regex.IsMatch(strNewValue, pattern))
                 return (false, "Error");
-
-            if (strNewValue.Length > length)
-            {
-                strNewValue = strNewValue.Substring(0, length);
-            }
+            
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"{itemName} was changed to {strNewValue}. Press any key to Continue...");
             Console.ResetColor();

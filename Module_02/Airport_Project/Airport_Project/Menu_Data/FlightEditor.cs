@@ -44,7 +44,75 @@ namespace Airport_Project.Menu_Data
             }
         }
 
-        internal void EditFlight(List<Flight> flights, string direction)
+        internal void HandleFlightList(List<Flight> flights, string description)
+        {
+            bool parseIsOk;
+            int numOfItemToEdit;
+            string usersChoice = string.Empty;
+
+            while (true)
+            {
+                Console.Clear();
+                itemsPrinter.PrintItemsList(flights, 0, description);
+                Console.Write($"1 - Edit Flight\n2 - Add Flight\n3 - Delete Flight\n0 - Exit to previous Menu\nYour choice: ");
+
+                parseIsOk = Int32.TryParse(Console.ReadLine(), out numOfItemToEdit);
+
+                if (numOfItemToEdit == 0 && parseIsOk)
+                    return;
+                if (!parseIsOk || numOfItemToEdit < 0 || numOfItemToEdit > 3)
+                {
+                    usersChoice = ReceiveUserChoice();
+                    if (usersChoice == "1") break;
+                    if (usersChoice == "2") return;
+                    else continue;
+                }
+                //Edit Passenger
+                switch (numOfItemToEdit)
+                {
+                    case 1:
+                        EditFlightsList(flights, description);
+                        break;
+
+                    case 2:
+                        try
+                        {
+                            flights.Add(new Flight(new Random()));
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                        }
+                        break;
+                    case 3:
+                        try
+                        {
+                            Console.Write("Enter number...   ");
+                            flights.Remove(flights[int.Parse(Console.ReadLine()) - 1]);
+
+                        }
+                        catch (Exception e)
+                        {                            
+                            usersChoice = ReceiveUserChoice();
+                            if (usersChoice == "1") break;
+                            if (usersChoice == "2") return;
+                            else continue;
+                        }
+                        break;
+
+                    default:
+                        usersChoice = ReceiveUserChoice();
+                        if (usersChoice == "1") break;
+                        if (usersChoice == "2") return;
+                        else continue;
+                }
+
+            }
+        }
+
+
+        //Editing List of Flights
+        internal void EditFlightsList(List<Flight> flights, string direction)
         {
             Flight flightItem;
             int numOfFlightToEdit;
@@ -96,7 +164,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();                                
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
-                                (bool succeed, string result) flightIdFromUser = ChangeItemInDesk("flight ID", flightItem.FlightID, @"[A-Z]{2}\s\d{4}$", 8);
+                                (bool succeed, string result) flightIdFromUser = ChangeItemInDesk("flight ID", flightItem.FlightID, @"[A-Z]{2}\s\d{4}$");
                                 if (!flightIdFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -135,7 +203,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();                                
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
-                                (bool succeed, string result) flightCityFromUser = ChangeItemInDesk("City", flightItem.CityName, @"^[A-Z][a-z]+(?:[\s-][A-Z][a-z]+)*$", 10);
+                                (bool succeed, string result) flightCityFromUser = ChangeItemInDesk("City", flightItem.CityName, @"^[A-Z][a-z]+(?:[\s-][A-Z][a-z]+)*$");
                                 if (!flightCityFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -154,7 +222,7 @@ namespace Airport_Project.Menu_Data
                             {
                                 Console.Clear();                               
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
-                                (bool succeed, string result) flightAirCompFromUser = ChangeItemInDesk("Air Company", flightItem.AirCompany, @"[A-Z][a-z]+$", 8);
+                                (bool succeed, string result) flightAirCompFromUser = ChangeItemInDesk("Air Company", flightItem.AirCompany, @"[A-Z][a-z]+$");
                                 if (!flightAirCompFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -193,7 +261,7 @@ namespace Airport_Project.Menu_Data
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
-                                (bool succeed, string result) flightGateFromUser = ChangeItemInDesk("Gate ID", flightItem.GateID, @"^[A-Z]\d+", 4);
+                                (bool succeed, string result) flightGateFromUser = ChangeItemInDesk("Gate ID", flightItem.GateID, @"^[A-Z]\d+");
                                 if (!flightGateFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
@@ -237,8 +305,8 @@ namespace Airport_Project.Menu_Data
                             }
                             break;
                         case 8: //Passenger list
-                            Console.Clear();                            
-                            passengerEditor.EditPassenger(flightItem.PassengerList, $"List of Passenger of flight {flightItem}");
+                            Console.Clear();                           
+                            passengerEditor.HandlePassengerList(flightItem.PassengerList, $"List of Passenger of flight {flightItem}");
                             break;
                         default:
                             //If edit info is incorrect
