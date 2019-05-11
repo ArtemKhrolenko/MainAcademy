@@ -49,7 +49,7 @@ namespace Airport_Project.Passenger_Data
         public PassengerSex Sex { get; set; }
 
         [Description("Class")]
-        public PassengerClass PassClass { get; private set; }
+        public PassengerClass PassClass { get; set; }
 
         private Random rnd;
 

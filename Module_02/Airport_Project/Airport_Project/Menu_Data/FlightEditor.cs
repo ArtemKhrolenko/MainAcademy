@@ -24,8 +24,8 @@ namespace Airport_Project.Menu_Data
             passengerEditor = new PassengerEditor(_itemsPrinter);
             ArrivalFlights = new List<Flight>();
             DepartureFlights = new List<Flight>();
-            
-            
+
+
         }
 
         //Initalize lists
@@ -76,7 +76,7 @@ namespace Airport_Project.Menu_Data
 
                 while (true)
                 {
-                    Console.Clear();                    
+                    Console.Clear();
                     itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                     Console.WriteLine($"...Editing flight {flightItem.FlightID} to(from) {flightItem.CityName}");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -94,8 +94,7 @@ namespace Airport_Project.Menu_Data
                         case 1: //FlightID                      
                             while (true)
                             {
-                                Console.Clear();
-                                //flightPrinter.PrintTable(flights, direction);
+                                Console.Clear();                                
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, string result) flightIdFromUser = ChangeItemInDesk("flight ID", flightItem.FlightID, @"[A-Z]{2}\s\d{4}$", 8);
                                 if (!flightIdFromUser.succeed)
@@ -113,8 +112,7 @@ namespace Airport_Project.Menu_Data
                         case 2: //Time   
                             while (true)
                             {
-                                Console.Clear();
-                                //flightPrinter.PrintTable(flights, direction);
+                                Console.Clear();                               
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", flightItem.Time, "HH:mm");
                                 if (!timeFromUser.succeed)
@@ -124,7 +122,7 @@ namespace Airport_Project.Menu_Data
                                     if (usersChoice == "2") return;
                                     else continue;
                                 }
-                                flights[numOfFlightToEdit - 1].Time = timeFromUser.result;                                
+                                flights[numOfFlightToEdit - 1].Time = timeFromUser.result;
                                 flights.Sort();
                                 numOfFlightToEdit = flights.IndexOf(flightItem) + 1;
                                 break;
@@ -135,8 +133,7 @@ namespace Airport_Project.Menu_Data
 
                             while (true)
                             {
-                                Console.Clear();
-                                //flightPrinter.PrintTable(flights, direction);
+                                Console.Clear();                                
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, string result) flightCityFromUser = ChangeItemInDesk("City", flightItem.CityName, @"^[A-Z][a-z]+(?:[\s-][A-Z][a-z]+)*$", 10);
                                 if (!flightCityFromUser.succeed)
@@ -146,9 +143,7 @@ namespace Airport_Project.Menu_Data
                                     if (usersChoice == "2") return;
                                     else continue;
                                 }
-                                flights.FirstOrDefault(f => f.FlightID == flightItem.FlightID).CityName = flightCityFromUser.result;
-                                
-                                //flights[numOfFlightToEdit - 1].CityName = flightCityFromUser.result;
+                                flights.FirstOrDefault(f => f.FlightID == flightItem.FlightID).CityName = flightCityFromUser.result;                                
                                 break;
                             }
                             break;
@@ -157,8 +152,7 @@ namespace Airport_Project.Menu_Data
 
                             while (true)
                             {
-                                Console.Clear();
-                                //flightPrinter.PrintTable(flights, direction);
+                                Console.Clear();                               
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, string result) flightAirCompFromUser = ChangeItemInDesk("Air Company", flightItem.AirCompany, @"[A-Z][a-z]+$", 8);
                                 if (!flightAirCompFromUser.succeed)
@@ -177,8 +171,7 @@ namespace Airport_Project.Menu_Data
 
                             while (true)
                             {
-                                Console.Clear();
-                                //flightPrinter.PrintTable(flights, direction);
+                                Console.Clear();                                
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
                                 (bool succeed, char result) flightTerminalFromUser = ChangeItemInDesk("Terminal", flightItem.Terminal);
                                 if (!flightTerminalFromUser.succeed)
@@ -219,61 +212,33 @@ namespace Airport_Project.Menu_Data
                                 Console.Clear();
                                 //flightPrinter.PrintTable(flights, direction);
                                 itemsPrinter.PrintItemsList(flights, numOfFlightToEdit, direction);
-                                Console.WriteLine("Editing Flight Status...");
-
-                                //Printing All of statuses
-                                Console.ForegroundColor = ConsoleColor.DarkGray;
-                                foreach (var item in Enum.GetValues(typeof(FlightStatus)))
-                                {
-                                    Console.WriteLine((int)item + 1 + ". " + ((FlightStatus)item).GetDescription());
-                                }
-                                Console.WriteLine("0. To return to previous menu");
-                                Console.ResetColor();
-                                Console.WriteLine("Chose the status to set...");
-
-                                bool isEnumValue = Int32.TryParse(Console.ReadLine(), out int _flightStatusIndex);
-
-                                if (isEnumValue && _flightStatusIndex == 0)
-                                    break;
-
-                                //Checking for correct input for the status of Flight
-                                if (isEnumValue && _flightStatusIndex > 0 && _flightStatusIndex <= Enum.GetValues(typeof(FlightStatus)).Length)
-                                {
-                                    //if Status == Departed At OR Departed AT - ask user about exat time of departing or excepting
-                                    if ((FlightStatus)_flightStatusIndex - 1 == FlightStatus.DEPARTED_AT || (FlightStatus)_flightStatusIndex - 1 == FlightStatus.EXPECTED_AT)
-                                    {
-                                        (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time of Departure or Arrival", flightItem.StatusTime, "HH:mm");
-                                        if (!timeFromUser.succeed)
-                                        {
-                                            usersChoice = ReceiveUserChoice();
-                                            if (usersChoice == "1") break;
-                                            if (usersChoice == "2") return;
-                                            else continue;
-                                        }
-                                        flights[numOfFlightToEdit - 1].StatusTime = timeFromUser.result;
-                                    }
-
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine($"Flight status changed from \"{flightItem.FlightStatus.GetDescription()}\" to \"{((FlightStatus)_flightStatusIndex - 1).GetDescription()}\". Press any key to Continue...");
-                                    flights[numOfFlightToEdit - 1].FlightStatus = (FlightStatus)_flightStatusIndex - 1;
-                                    Console.ReadKey();
-                                }
-                                else
+                                (bool succeed, Enum result) statusFromUser = ChangeItemInDesk("Status", flightItem.FlightStatus);
+                                if (!statusFromUser.succeed)
                                 {
                                     usersChoice = ReceiveUserChoice();
                                     if (usersChoice == "1") break;
                                     if (usersChoice == "2") return;
                                     else continue;
                                 }
+                                flightItem.FlightStatus = (FlightStatus)statusFromUser.result;                                
+
+                                if (flightItem.FlightStatus == FlightStatus.DEPARTED_AT || flightItem.FlightStatus == FlightStatus.EXPECTED_AT)
+                                {
+                                    (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time of Departure or Arrival", flightItem.StatusTime, "HH:mm");
+                                    if (!timeFromUser.succeed)
+                                    {
+                                        usersChoice = ReceiveUserChoice();
+                                        if (usersChoice == "1") break;
+                                        if (usersChoice == "2") return;
+                                        else continue;
+                                    }
+                                    flights[numOfFlightToEdit - 1].StatusTime = timeFromUser.result;
+                                }                               
                             }
                             break;
                         case 8: //Passenger list
-                            Console.Clear();
-                            //itemsPrinter.PrintItemsList(flightItem.PassengerList, 0, $"List of Passenger of flight {flightItem}");
-                            //Console.ReadKey();
+                            Console.Clear();                            
                             passengerEditor.EditPassenger(flightItem.PassengerList, $"List of Passenger of flight {flightItem}");
-
-
                             break;
                         default:
                             //If edit info is incorrect
@@ -287,6 +252,6 @@ namespace Airport_Project.Menu_Data
                     if (numOfItemToEdit == -1 && usersChoice == "1") break;
                 }
             }
-        }      
+        }
     }
 }

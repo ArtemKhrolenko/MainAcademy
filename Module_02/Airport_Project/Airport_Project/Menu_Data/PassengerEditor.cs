@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Airport_Project.Passenger_Data;
+using Airport_Project.Flight_Data;
 
 namespace Airport_Project.Menu_Data
 {
-    class PassengerEditor: Editor
+    class PassengerEditor : Editor
     {
         private ItemsPrinter itemsPrinter;
         public PassengerEditor(ItemsPrinter _itemsPrinter)
@@ -24,7 +25,7 @@ namespace Airport_Project.Menu_Data
 
             while (true)
             {
-                Console.Clear();                
+                Console.Clear();
                 itemsPrinter.PrintItemsList(passengers, 0, description);
                 Console.Write($"Enter number of passenger you want to edit...Or press 0 to return to previous menu...");
 
@@ -70,7 +71,7 @@ namespace Airport_Project.Menu_Data
                         case 1: //Fist Name                     
                             while (true)
                             {
-                                Console.Clear();                                
+                                Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
                                 (bool succeed, string result) firstNameFromUser = ChangeItemInDesk("First Name", passItem.FirstName, @"[A-Z][a-z]+$", 8);
                                 if (!firstNameFromUser.succeed)
@@ -98,7 +99,7 @@ namespace Airport_Project.Menu_Data
                                     if (usersChoice == "2") return;
                                     else continue;
                                 }
-                                passengers[numOfPassToEdit - 1].FirstName = secondNameFromUser.result;
+                                passengers[numOfPassToEdit - 1].SecondName = secondNameFromUser.result;
                                 break;
                             }
                             break;
@@ -107,7 +108,7 @@ namespace Airport_Project.Menu_Data
 
                             while (true)
                             {
-                                Console.Clear();                                
+                                Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
                                 (bool succeed, string result) natioFromUser = ChangeItemInDesk("City", passItem.Nationality, @"^[A-Z][a-z]+$", 10);
                                 if (!natioFromUser.succeed)
@@ -118,7 +119,7 @@ namespace Airport_Project.Menu_Data
                                     else continue;
                                 }
                                 passengers[numOfPassToEdit - 1].Nationality = natioFromUser.result;
-                                
+
                                 break;
                             }
                             break;
@@ -127,7 +128,7 @@ namespace Airport_Project.Menu_Data
 
                             while (true)
                             {
-                                Console.Clear();                                
+                                Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
                                 (bool succeed, string result) passportFromUser = ChangeItemInDesk("Air Company", passItem.Passport, @"[A-Z]{2}[0-9]{4}$", 8);
                                 if (!passportFromUser.succeed)
@@ -142,38 +143,59 @@ namespace Airport_Project.Menu_Data
                             }
                             break;
 
-                        case 5: //Date of Birth                          
+                        case 5: //Date of Birth                         
 
-                            Console.Clear();                            
-                            itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                            (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", passItem.DateOfBirth, "dd.MM.yyyy");
-                            if (!timeFromUser.succeed)
+                            while (true)
                             {
-                                usersChoice = ReceiveUserChoice();
-                                if (usersChoice == "1") break;
-                                if (usersChoice == "2") return;
-                                else continue;
+                                Console.Clear();
+                                itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
+                                (bool succeed, DateTime result) timeFromUser = ChangeItemInDesk("Time", passItem.DateOfBirth, "dd.MM.yyyy");
+                                if (!timeFromUser.succeed)
+                                {
+                                    usersChoice = ReceiveUserChoice();
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
+                                }
+                                passengers[numOfPassToEdit - 1].DateOfBirth = timeFromUser.result;
+                                break;
                             }
-                            passengers[numOfPassToEdit - 1].DateOfBirth = timeFromUser.result;                            
                             break;
-                        
+
 
                         case 6: //Sex
                             while (true)
                             {
-                                Console.Clear();                                
+                                Console.Clear();
                                 itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
-                                ChangeItemInDesk("Sex", passItem.Sex);
-                                Console.Read();
+                                (bool succeed, Enum result) sexFromUser = ChangeItemInDesk("Sex", passItem.Sex);
+                                if (!sexFromUser.succeed)
+                                {
+                                    usersChoice = ReceiveUserChoice();
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
+                                }
+                                passItem.Sex = (PassengerSex)sexFromUser.result;                                
+                                break;
+                            }
+                            break;
 
-                                
-                                //else
-                                //{
-                                //    usersChoice = ReceiveUserChoice();
-                                //    if (usersChoice == "1") break;
-                                //    if (usersChoice == "2") return;
-                                //    else continue;
-                                //}
+                        case 7: //Class
+                            while (true)
+                            {
+                                Console.Clear();
+                                itemsPrinter.PrintItemsList(passengers, numOfPassToEdit, description);
+                                (bool succeed, Enum result) classFromUser = ChangeItemInDesk("Class", passItem.PassClass);
+                                if (!classFromUser.succeed)
+                                {
+                                    usersChoice = ReceiveUserChoice();
+                                    if (usersChoice == "1") break;
+                                    if (usersChoice == "2") return;
+                                    else continue;
+                                }
+                                passItem.PassClass = (PassengerClass)classFromUser.result;
+                                break;
                             }
                             break;
 

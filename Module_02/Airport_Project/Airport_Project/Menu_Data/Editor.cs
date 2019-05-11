@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using Airport_Project.Flight_Data;
 
 namespace Airport_Project.Menu_Data
 {
@@ -101,7 +102,7 @@ namespace Airport_Project.Menu_Data
         }
 
         //Method for changing Enum value
-        protected void ChangeItemInDesk(string itemName, Enum oldItemValue)
+        protected (bool succeed, Enum result) ChangeItemInDesk(string itemName, Enum oldItemValue)
         {
             (bool succeed, Enum result) _enumValue;
             Console.WriteLine($"Editing {itemName}...");
@@ -110,9 +111,9 @@ namespace Airport_Project.Menu_Data
             Console.ForegroundColor = ConsoleColor.DarkGray;
             foreach (var item in Enum.GetValues(oldItemValue.GetType()))
             {
-                Console.WriteLine((int)item + 1 + ". " + item.ToString());
+                Console.WriteLine((int)item + 1 + ". " + (string.IsNullOrEmpty(((Enum)item).GetDescription()) ? item.ToString() : ((Enum)item).GetDescription()));
             }
-            Console.WriteLine("0. To return to previous menu");
+            //Console.WriteLine("0. To return to previous menu");
             Console.ResetColor();
             Console.WriteLine($"Chose the {itemName} to set...");
 
@@ -124,15 +125,28 @@ namespace Airport_Project.Menu_Data
                 _enumValue.result = oldItemValue;
             }
 
-
+            Enum newItemValueEnum;
             //Checking for correct input for the status of Flight
-            //if (isEnumValue && _sexIndex > 0 && _sexIndex <= Enum.GetValues(oldItemValue.GetType()).Length)
-            //{
-            //    Console.ForegroundColor = ConsoleColor.Green;
-            //    Console.WriteLine($"{itemName} changed from \"{oldItemValue.ToString()}\" to \"{((typeof(oldItemValue))(_sexIndex - 1)).ToString()}\". Press any key to Continue...");
-            //    //passengers[numOfPassToEdit - 1].Sex = (PassengerSex)_sexIndex - 1;
-            //    Console.ReadKey();
-            //}
+            if (isEnumValue && _sexIndex > 0 && _sexIndex <= Enum.GetValues(oldItemValue.GetType()).Length)
+            {
+                newItemValueEnum = (Enum)(Enum.GetValues(oldItemValue.GetType())).GetValue(_sexIndex - 1);
+                Console.ForegroundColor = ConsoleColor.Green;
+                string oldItemValueDesc = (string.IsNullOrEmpty((oldItemValue).GetDescription()) ? oldItemValue.ToString() : (oldItemValue).GetDescription());
+                string newItemValueDesc = (string.IsNullOrEmpty((newItemValueEnum).GetDescription()) ? newItemValueEnum.ToString() : (newItemValueEnum).GetDescription());
+                Console.WriteLine($"{itemName} changed from \"{oldItemValueDesc}\" to \"{newItemValueDesc}\". Press any key to Continue...");
+                Console.ReadLine();
+
+                _enumValue.succeed = true;
+                _enumValue.result = newItemValueEnum;                
+            }
+            else
+            {
+                _enumValue.succeed = false;
+                _enumValue.result = oldItemValue;
+            }
+
+            return _enumValue;
+
         }
 
     }
