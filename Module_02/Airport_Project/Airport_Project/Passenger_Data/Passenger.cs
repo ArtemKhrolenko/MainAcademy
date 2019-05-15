@@ -13,12 +13,12 @@ namespace Airport_Project.Passenger_Data
 {
     class Passenger: IPrintable
     {
-        #region Static Members
-        internal static PropertyInfo[] listOffields; //List of Properies with Description attribute
+        #region Static Members        
         private static string[] countryArray;       //List Of Countries. Filled from Passenger static constructor
         #endregion
 
-        [Description("Flight")]
+        #region Properties
+      //  [Description("Flight")]
         public Flight PassFlight { get; set; }
 
         [Description("First Name")]
@@ -51,7 +51,7 @@ namespace Airport_Project.Passenger_Data
         [Description("Class")]
         public PassengerClass PassClass { get; set; }
 
-
+        #endregion
 
         private Random rnd;
 
@@ -83,8 +83,7 @@ namespace Airport_Project.Passenger_Data
         {
             //Get list of Countries
             countryArray = GetCountryList();
-            //Get list of Properties
-            listOffields = InitProps();
+           
         }
 
         //Method for getting array of Countries for Random initialization
@@ -108,23 +107,8 @@ namespace Airport_Project.Passenger_Data
             //sorting array
             _countryList.Sort();
             return _countryList.ToArray();
-        }
-
-        //Method for getting a list of Propeerties with Description attribute
-        private static PropertyInfo[] InitProps()
-        {
-            PropertyInfo[] props = typeof(Passenger).GetProperties();
-            var propList = new List<PropertyInfo>();
-            foreach (var item in props)
-            {
-                if (Attribute.IsDefined(item, typeof(DescriptionAttribute)))
-                {
-                    propList.Add(item);
-                }
-            }
-            return propList.ToArray();
-
-        }
+        }      
+       
         #endregion
 
         #region Random Initialization
@@ -180,33 +164,6 @@ namespace Airport_Project.Passenger_Data
 
         #endregion
 
-        #region Printing Passenger's info
-        //Method for printing Passenger's info
-        internal void GetPassengerFieldsDescription()
-        {
-            foreach (var item in listOffields)
-            {
-                printPassangerInfoLine(item, this);
-                //Console.Write($"{(Attribute.GetCustomAttribute(item, typeof(DescriptionAttribute)) as DescriptionAttribute).Description}  ");
-            }
-        }
-
-        //Method for printing one passengar's info line
-        private void printPassangerInfoLine(PropertyInfo propertyInfo, Passenger passanger)
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            string desc = (Attribute.GetCustomAttribute(propertyInfo, typeof(DescriptionAttribute)) as DescriptionAttribute).Description;
-            Console.Write($"{desc,-20}");
-            Console.ResetColor();
-            object objVal = propertyInfo.GetValue(passanger);
-            string value = objVal.ToString();
-            Console.WriteLine(value.Substring(0, Math.Min(10, value.Length)));
-            Console.ResetColor();            
-        }
-
-        #endregion
-
-
-
+        
     }
 }

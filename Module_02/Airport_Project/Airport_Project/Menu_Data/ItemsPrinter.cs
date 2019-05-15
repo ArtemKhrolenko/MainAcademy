@@ -14,7 +14,7 @@ namespace Airport_Project.Menu_Data
     {
         //Method for printing Desk Table      
 
-        internal void PrintItemsList<T>(List<T> listForPrint, int lightItem, string description) where T : IPrintable
+        internal void PrintItemsList<T>(List<T> listForPrint, int lightItem =0, string description=null) where T : IPrintable
         {            
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(description);

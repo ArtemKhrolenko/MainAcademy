@@ -13,7 +13,7 @@ namespace Airport_Project.Passenger_Data
         private List<Flight> listOfFlightsToFindArrive, listOfFlightsToFindDeparture;
         private List<Flight> totalListOfFlights;
         private ItemsPrinter printer;
-        private Dictionary<int, Func<Passenger, string, bool>> dictOfFuncs;
+        
         internal PassengerSeeker(List<Flight> _listOfFlightsToFindArrive, List<Flight> _listOfFlightsToFindDeparture,ItemsPrinter _printer)
         {
             listOfFlightsToFindArrive = _listOfFlightsToFindArrive;
@@ -21,9 +21,7 @@ namespace Airport_Project.Passenger_Data
 
             printer = _printer;
 
-            totalListOfFlights = new List<Flight>();
-
-            dictOfFuncs = new Dictionary<int, Func<Passenger, string, bool>>();
+            totalListOfFlights = new List<Flight>();            
 
         }
 
@@ -79,8 +77,7 @@ namespace Airport_Project.Passenger_Data
                     if (choice == "1") break;                                        
                     else continue;
                 } 
-            }
-            
+            }            
 
         }
 
@@ -98,13 +95,6 @@ namespace Airport_Project.Passenger_Data
             
             return passengerList.ToList();
         }
-
-        protected string ReceiveUserChoice()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Incorrect Input. {Environment.NewLine} 1 - To previous menu {Environment.NewLine} 2 - To exit editing {Environment.NewLine} Any key - Try again");
-            Console.ResetColor();
-            return Console.ReadLine();
-        }
+        
     }
 }

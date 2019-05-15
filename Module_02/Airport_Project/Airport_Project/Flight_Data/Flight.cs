@@ -17,6 +17,8 @@ namespace Airport_Project.Flight_Data
         internal static string[] airComps = { "FLYUIA", "Lufthansa", "Wind Rose", "KLM", "Delta", "Air France" };
         #endregion
 
+        #region Properties
+
         [Description("Flight")]
         public string FlightID { get; set; }      //Flight ID        
         public DateTime Time { get; set; }        //Time of arrival (departure)
@@ -28,15 +30,15 @@ namespace Airport_Project.Flight_Data
             }
         }
         [Description("City ")]
-        public string CityName { get; set; }      //Destanation(departure) city
+        public string CityName { get; set; }             //Destanation(departure) city
         [Description("Air Company")]
-        public string AirCompany { get; set; }      //Air Company ID
+        public string AirCompany { get; set; }           //Air Company ID
         [Description("Terminal")]
-        public char Terminal { get; set; }      //Airport terminal
+        public char Terminal { get; set; }               //Airport terminal
         [Description("Gate")]
-        public string GateID { get; set; }      //Airport Gate ID
+        public string GateID { get; set; }               //Airport Gate ID
         
-        internal FlightStatus FlightStatus { get; set; }      //Status of Flight     
+        internal FlightStatus FlightStatus { get; set; } //Status of Flight     
         [Description("    Status     ")]
         public string StrFligjtStatusTime {
             get
@@ -46,16 +48,12 @@ namespace Airport_Project.Flight_Data
             }
         }
 
-        internal DateTime StatusTime { get; set; }      //Status Time
+        internal DateTime StatusTime { get; set; }                //Status Time
         internal List<Passenger> PassengerList { get; set; }      //List of Passengers
+        #endregion
 
         private Random rnd;
-        private int _passengerCount = 10; //Count of passengers on a flight for Random initialization
-
-        static Flight()
-        {
-            listOffields = InitProps();
-        }
+        private int _passengerCount = 10;                         //Count of passengers on a flight for Random initialization       
         
         //Default Constructor
         internal Flight()
@@ -137,22 +135,7 @@ namespace Airport_Project.Flight_Data
         public override string ToString()
         {
             return this.FlightID;
-        }
-
-        private static PropertyInfo[] InitProps()
-        {
-            PropertyInfo[] props = typeof(Passenger).GetProperties();
-            var propList = new List<PropertyInfo>();
-            foreach (var item in props)
-            {
-                if (Attribute.IsDefined(item, typeof(DescriptionAttribute)))
-                {
-                    propList.Add(item);
-                }
-            }
-            return propList.ToArray();
-
-        }
+        }       
 
     }
 }
