@@ -71,9 +71,11 @@ namespace Airport_Project.Menu_Data
                 switch (numOfItemToEdit)
                 {
                     case 1:
+                        //Editing flights
                         EditFlightsList(flights, description);
                         break;
-
+                        
+                        //Adding flight
                     case 2:
                         try
                         {
@@ -84,6 +86,8 @@ namespace Airport_Project.Menu_Data
                             Console.WriteLine(e.Message);
                         }
                         break;
+
+                        //Deleting flights
                     case 3:
                         try
                         {

@@ -56,6 +56,7 @@
     <Compile Include="Menu_Data\PassengerEditor.cs" />
     <Compile Include="Passenger_Data\Passenger.cs" />
     <Compile Include="Passenger_Data\PassengerClass.cs" />
+    <Compile Include="Passenger_Data\PassengerSeeker.cs" />
     <Compile Include="Passenger_Data\PassengerSex.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

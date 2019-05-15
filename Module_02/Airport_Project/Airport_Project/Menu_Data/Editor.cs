@@ -73,18 +73,16 @@ namespace Airport_Project.Menu_Data
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"Editing {itemName}");
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.Write($"Change item from {oldItemValue.ToString(pattern)} to (in {pattern} format)...:  ");
-            //Console.Write($"Change item from {oldItemValue.Hour.ToString("D2")}:{oldItemValue.Minute.ToString("D2")} to (in HH:mm format)...:  ");
+            Console.Write($"Change item from {oldItemValue.ToString(pattern)} to (in {pattern} format)...:  ");            
 
             (bool succeed, DateTime result) _newDateTime;
             try
-            {
-                //_newDateTime.result = DateTime.ParseExact(Console.ReadLine() + ":00", "HH:mm:ss", CultureInfo.InvariantCulture);
+            {                
                 _newDateTime.result = DateTime.ParseExact(Console.ReadLine(), pattern, CultureInfo.InvariantCulture);
 
                 _newDateTime.succeed = true;
                 Console.ForegroundColor = ConsoleColor.Green;
-                //Console.WriteLine($"Time changed to {_newDateTime.result.Hour.ToString("D2")}:{_newDateTime.result.Minute.ToString("D2")}. Press any key to continue...");
+                
                 Console.WriteLine($"Time changed to {_newDateTime.result.ToString(pattern)}. Press any key to continue...");
 
                 Console.ReadKey();

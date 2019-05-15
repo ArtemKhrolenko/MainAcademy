@@ -51,6 +51,8 @@ namespace Airport_Project.Passenger_Data
         [Description("Class")]
         public PassengerClass PassClass { get; set; }
 
+
+
         private Random rnd;
 
         //For random implicit fields initalization

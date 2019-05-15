@@ -23,6 +23,7 @@ namespace Airport_Project
 
             ItemsPrinter flightPrinter = new ItemsPrinter();            
             FlightEditor flightEditor = new FlightEditor(true, flightPrinter); //Creating Flight Editor class with Random list initialization
+            PassengerSeeker passengerSeeker = new PassengerSeeker(flightEditor.ArrivalFlights, flightEditor.DepartureFlights, flightPrinter);
             
 
             string userInput;
@@ -31,7 +32,7 @@ namespace Airport_Project
                 Console.Clear();                
                 flightPrinter.PrintItemsList(flightEditor.ArrivalFlights, 0, arrivalStr);                
                 flightPrinter.PrintItemsList(flightEditor.DepartureFlights, 0, departStr);
-                Console.WriteLine("Edit Arrival: \t\tPress 1\nEdit Departures: \tPress 2\nTo Exit: \t\tPress 0");
+                Console.WriteLine("Edit Arrival: \t\tPress 1\nEdit Departures: \tPress 2\nFind Passenger: \tPress 3\nTo Exit: \t\tPress 0");
                 userInput = Console.ReadLine();
 
                 switch (userInput)
@@ -42,8 +43,11 @@ namespace Airport_Project
                     case "2":
                         flightEditor.HandleFlightList(flightEditor.DepartureFlights, departStr);
                         break;
+                    case "3":
+                        passengerSeeker.FinAllPassengers();
+                        break;
                     case "0":
-                        return;
+                        return;                       
 
                     default:
                         Console.ForegroundColor = ConsoleColor.Red;

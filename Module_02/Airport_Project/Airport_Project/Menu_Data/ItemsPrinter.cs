@@ -37,8 +37,7 @@ namespace Airport_Project.Menu_Data
             //Printing Data
             Console.ForegroundColor = ConsoleColor.DarkGray;
             string value;
-            int attributeLength;
-            object o;
+            int attributeLength;            
             for (int i = 0; i < listForPrint.Count; i++)
             {
                 if (i == lightItem - 1)

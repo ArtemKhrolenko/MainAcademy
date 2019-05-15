@@ -43,10 +43,12 @@ namespace Airport_Project.Menu_Data
                 //Edit Passenger
                 switch (numOfItemToEdit)
                 {
+                    //Edit passengers
                     case 1:
                         EditPassengerList(passengers, description);
                         break;
 
+                        //Adding Passenger
                     case 2:
                         try
                         {
@@ -57,6 +59,8 @@ namespace Airport_Project.Menu_Data
                             throw new NotFiniteNumberException();
                         }
                         break;
+
+                        //Deleting Passenger
                     case 3:
                         try
                         {
