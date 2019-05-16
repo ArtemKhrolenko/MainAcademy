@@ -13,15 +13,15 @@ namespace Airport_Project.Passenger_Data
         private List<Flight> listOfFlightsToFindArrive, listOfFlightsToFindDeparture;
         private List<Flight> totalListOfFlights;
         private ItemsPrinter printer;
-        
-        internal PassengerSeeker(List<Flight> _listOfFlightsToFindArrive, List<Flight> _listOfFlightsToFindDeparture,ItemsPrinter _printer)
+
+        internal PassengerSeeker(List<Flight> _listOfFlightsToFindArrive, List<Flight> _listOfFlightsToFindDeparture, ItemsPrinter _printer)
         {
             listOfFlightsToFindArrive = _listOfFlightsToFindArrive;
             listOfFlightsToFindDeparture = _listOfFlightsToFindDeparture;
 
             printer = _printer;
 
-            totalListOfFlights = new List<Flight>();            
+            totalListOfFlights = new List<Flight>();
 
         }
 
@@ -74,27 +74,44 @@ namespace Airport_Project.Passenger_Data
                     Console.WriteLine($"Incorrect Input. {Environment.NewLine} 1 - To previous menu {Environment.NewLine} Any key - Try again");
                     Console.ResetColor();
                     string choice = Console.ReadLine();
-                    if (choice == "1") break;                                        
+                    if (choice == "1") break;
                     else continue;
-                } 
-            }            
+                }
+            }
 
         }
 
 
         private List<Passenger> FindAllPassengersPredicate(Func<Passenger, bool> func)
-        {            
+        {
             //Union of lists of Flights
+            totalListOfFlights.Clear();
             totalListOfFlights.AddRange(listOfFlightsToFindArrive);
-            totalListOfFlights.AddRange(listOfFlightsToFindDeparture);            
+            totalListOfFlights.AddRange(listOfFlightsToFindDeparture);
 
-            var passengerList = from f in totalListOfFlights
-                                from p in f.PassengerList                                    
+            foreach (var item in totalListOfFlights)
+            {
+                foreach (var item2 in item.PassengerList)
+                {
+                    Console.WriteLine(item2.FirstName);
+                }
+            }
+           
+
+             var passengerList = from f in totalListOfFlights
+                                from p in f.PassengerList
                                 where func(p)
                                 select p;
-            
+
+
+            foreach (var item2 in passengerList)
+            {
+                Console.WriteLine(item2.FirstName);
+            }
+
+            Console.ReadLine();            
             return passengerList.ToList();
         }
-        
+
     }
 }
