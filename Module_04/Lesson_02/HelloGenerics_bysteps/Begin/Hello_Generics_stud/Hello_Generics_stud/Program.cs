@@ -34,24 +34,27 @@ namespace Hello_Generics_stud
                         {
                             case 1:                             
                                 Console.WriteLine("Create Derived from static base constructor ...");
+                                Swap<Derived>();
                                
                                 break;
                             case 2:
-                                Console.WriteLine("Create Derived from static base constructor ...");
-                                
+                                Console.WriteLine("Create Derived from Protected base constructor (StackOverflow !) ...");
+                                 Swap<Derived_publ>();
                                 break;
                             case 3:
-                                Console.WriteLine("Create Derived from static base constructor ...");
+                                Console.WriteLine("Create Derived from Static base constructor, public field ...");
+                                Swap<Derived_public_field>();
+
                                
                                 break;
                             case 4:
-                                Console.WriteLine("Create Derived from static base constructor ...");
-                                                                
+                                Console.WriteLine("Static base constructor, public field ...");
+                                Swap<Derived_static_field>();                                                                
                                 Console.WriteLine("");
                                 break;
                             case 5:
                                 Console.WriteLine("Create currying ...");
-                               
+                                Gen_List_Func();
                                 Console.WriteLine("");
                                 break;
                            
@@ -80,6 +83,34 @@ namespace Hello_Generics_stud
             }
 
         }
+
+        static void Swap<T>() where T: new()
+        {
+            T puzzle = new T();
+            Console.WriteLine("");
+        }
+
+        #region Gen_List_Func
+        static void Gen_List_Func()
+        {
+            var source = new List<double> { 1.0, 2.4, 34.9, 9.02, 7.0 };
+            var result = new List<double>(); 
+            Func<double, double, double> f = (x, у) => x - у;
+
+            // Substitute second argument and receive new delegate for one argument by Bnd extension method
+            var fBnd = f.Bnd()(2.0);
+
+            Console.WriteLine("Source list");
+            foreach ( var item in source )  {
+            Console.Write ( "{0} ; ", item );
+            result.Add( fBnd(item) );
+            }
+            Console.WriteLine();
+            Console.WriteLine ("Result list");
+            foreach ( var item in result )  { Console.Write ( "{0} ; ", item );
+                   }
+        }
+        #endregion
 
 
     }
