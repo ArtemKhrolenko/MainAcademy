@@ -10,11 +10,32 @@ namespace CSharp_Net_module1_7_1_lab
     class Program
     {
         static void Main(string[] args)
-        {
+        {                      
+
             // 3) create collection of computers;
+            List<Computer> computersList = new List<Computer>();
+            #region Filling ComputerList
+            computersList.Add(new Computer{Cores = 4, Frequency = 2.5, Hdd = 500,  Memory = 8 });
+            computersList.Add(new Computer{Cores = 8, Frequency = 3.2, Hdd = 2048, Memory = 4 });
+            computersList.Add(new Computer{Cores = 2, Frequency = 3.5, Hdd = 320,  Memory = 16 });
+            computersList.Add(new Computer{Cores = 6, Frequency = 1.5, Hdd = 1024, Memory = 12 });
+            #endregion
+            
             // set path to file and file name
+            InOutOperation op = new InOutOperation();
+            
+            //Path to File
+            op.ChangeLocation(@"D:\Khrolenko\C#\MainAcademy\Module_05\Lesson_01\CSharp_Net_module1_7_1_lab\StorageFolder"); 
+            //File name
+            op.CurrentFile = @"ComputerInfo.txt";
 
             // 4) save data and read it in the seamplest way (with WriteData() and ReadData() methods)
+
+            Console.WriteLine("Writing data...");
+            op.WriteData(computersList);
+
+            Console.WriteLine("Reading data...");
+            op.ReadData();
 
             // 5) save data and read it with WriteZip() and ReadZip() methods
             // Note: create another file for these operations
