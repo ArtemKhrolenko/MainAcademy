@@ -10,9 +10,14 @@ namespace Hello_CodeFirst_Linq
     public class tect_CodeFirstLingContext : DbContext
     {
         public tect_CodeFirstLingContext()
-            : base()
+            : base("DBConnection")
         {
 
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            
         }
 
         public DbSet<lecturer> lecturers { get; set; }
