@@ -12,5 +12,7 @@ namespace PersonLibrary
         public String LastName { get; set; }
         public DateTime Birthday { get; set; }
         public long Id { get; set; }
+        public int Salary { get; set; }
+
     }
 }
